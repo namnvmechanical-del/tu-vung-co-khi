@@ -43,7 +43,7 @@ export async function handler(req: Request): Promise<Response> {
 
   try {
     if (provider === 'payos') {
-      const req0 = { orderCode, amount, description: 'TUVUNGCK', returnUrl, cancelUrl };
+      const req0 = { orderCode, amount, description: 'ENGIWORDS', returnUrl, cancelUrl };
       const signature = await hmacHex(env('PAYOS_CHECKSUM_KEY'), payosRequestString(req0));
       const r = await fetch('https://api-merchant.payos.vn/v2/payment-requests', {
         method: 'POST',
@@ -76,7 +76,7 @@ export async function handler(req: Request): Promise<Response> {
     f.set('line_items[0][quantity]', '1');
     f.set('line_items[0][price_data][currency]', 'jpy');
     f.set('line_items[0][price_data][unit_amount]', String(amount));
-    f.set('line_items[0][price_data][product_data][name]', product.name_vi);
+    f.set('line_items[0][price_data][product_data][name]', 'EngiWords – ' + product.name_vi);
     const r = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',
       headers: { Authorization: `Bearer ${env('STRIPE_SECRET_KEY')}`, 'Content-Type': 'application/x-www-form-urlencoded' },

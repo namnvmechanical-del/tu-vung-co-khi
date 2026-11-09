@@ -1,6 +1,6 @@
-# Từ vựng Cơ khí Anh–Nhật
+# EngiWords – Từ vựng kỹ thuật Anh–Nhật
 
-Website học thuật ngữ cơ khí bằng tiếng Anh và tiếng Nhật cho người Việt: 100 chủ đề, 2.987 thuật ngữ, 120 bài (25 từ/bài), quiz trắc nghiệm và điền từ. Có tài khoản đăng nhập (Google/Email) và bán gói học (QR ngân hàng VN qua payOS, thẻ quốc tế qua Stripe).
+EngiWords: website học thuật ngữ cơ khí bằng tiếng Anh và tiếng Nhật cho người Việt: 100 chủ đề, 2.987 thuật ngữ, 120 bài (25 từ/bài), quiz trắc nghiệm và điền từ. Có tài khoản đăng nhập (Google/Email) và bán gói học (QR ngân hàng VN qua payOS, thẻ quốc tế qua Stripe).
 
 ## Cấu trúc
 
