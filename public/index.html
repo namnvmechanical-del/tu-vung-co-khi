@@ -60,13 +60,56 @@ h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.2
 .brand b{font-family:var(--f-display);font-size:1.12em;display:block;line-height:1.1}
 .brand small{color:var(--muted);font-size:.74em;letter-spacing:.06em;text-transform:uppercase}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--bg);gap:2px}
-.seg button{border:0;background:transparent;padding:6px 14px;border-radius:999px;font-weight:600;font-size:.9em;color:var(--muted)}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:999px;font-weight:600;font-size:.9em;color:var(--muted)}
 .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
 .nav{display:flex;gap:4px}
 .nav a{text-decoration:none;color:var(--muted);padding:6px 10px;border-radius:8px;font-weight:500;font-size:.92em}
 .nav a.on{color:var(--ink);background:var(--accent-soft)}
 .icon-btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 9px;font-size:.85em;color:var(--muted)}
 .sync{font-size:.75em;color:var(--muted)}
+.ltile.locked{opacity:.7} .ltile.locked::before{background:var(--line)} .ltile.locked .ls{color:var(--muted)}
+.free-badge{font-family:var(--f-mono);font-size:.7em;color:var(--good);border:1px solid color-mix(in srgb,var(--good) 40%,transparent);border-radius:999px;padding:1px 8px;margin-left:8px;vertical-align:middle}
+.lock-badge{font-family:var(--f-mono);font-size:.7em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-left:8px;vertical-align:middle}
+.paywall{max-width:640px;margin:20px auto;padding:28px;text-align:center}
+.paywall h2{font-size:1.5em;margin-bottom:8px}
+.plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:16px}
+.plan{padding:20px;display:flex;flex-direction:column;gap:10px;position:relative}
+.plan.hl{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.plan .tag{position:absolute;top:-11px;left:18px;background:var(--accent);color:var(--accent-ink);font-size:.72em;font-weight:700;border-radius:999px;padding:2px 10px}
+.plan h3{font-size:1.2em}
+.plan .price{font-family:var(--f-display);font-size:1.7em;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+.plan .price small{font-size:.5em;color:var(--muted);font-weight:500}
+.plan .alt{color:var(--muted);font-size:.85em;font-variant-numeric:tabular-nums}
+.plan ul{margin:0;padding-left:18px;color:var(--muted);font-size:.9em}
+.plan .pay{display:grid;gap:8px;margin-top:auto}
+.note{font-size:.85em;color:var(--muted);margin-top:14px}
+.acct-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.acct-card{padding:20px}
+.acct-card h2{font-size:1.15em;margin-bottom:10px}
+table.orders{width:100%;border-collapse:collapse;font-size:.88em}
+table.orders th,table.orders td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+table.orders th{color:var(--muted);font-weight:500;font-family:var(--f-mono);font-size:.8em;text-transform:uppercase}
+.st-paid{color:var(--good);font-weight:600} .st-pending{color:var(--signal);font-weight:600} .st-cancelled{color:var(--muted)}
+.banner{padding:12px 16px;border-radius:10px;margin-bottom:16px;font-size:.92em}
+.banner.info{background:var(--accent-soft)} .banner.ok{background:var(--good-soft);color:var(--good)} .banner.warn{background:var(--bad-soft);color:var(--bad)}
+.modal-bg{position:fixed;inset:0;background:rgba(10,18,28,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal-bg.open{display:flex}
+.modal{width:min(420px,100%);padding:26px;background:var(--surface);border:1px solid var(--line);border-radius:14px;display:grid;gap:12px}
+.modal h2{font-size:1.35em}
+.modal input{border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;background:var(--surface);width:100%}
+.modal .row{display:flex;gap:8px}
+.modal .row .btn{flex:1}
+.or{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.8em}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px}
+.linkbtn{background:none;border:0;color:var(--accent);padding:0;font-size:.88em;text-decoration:underline}
+.msg{font-size:.88em;min-height:1.2em}
+.msg.err{color:var(--bad)} .msg.ok{color:var(--good)}
+.foot a{color:var(--muted)}
+#theme{width:34px;height:34px;padding:0;display:grid;place-items:center;color:var(--ink)}
+.seg [data-fs]{padding:6px 9px}
+.bar-in{gap:10px}
+@media (max-width:760px){ .acct-grid{grid-template-columns:1fr} }
 
 main{max-width:1120px;margin:0 auto;padding:20px 16px 64px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
@@ -211,6 +254,8 @@ main{max-width:1120px;margin:0 auto;padding:20px 16px 64px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
 </head>
 <body>
 <header class="bar">
@@ -226,16 +271,39 @@ main{max-width:1120px;margin:0 auto;padding:20px 16px 64px}
     <nav class="nav">
       <a href="#roadmap" data-nav="roadmap">Lộ trình</a>
       <a href="#topics" data-nav="topics">Chủ đề</a>
+      <a href="#pricing" data-nav="pricing">Bảng giá</a>
     </nav>
     <div class="seg" role="group" aria-label="Cỡ chữ">
       <button data-fs="s" aria-label="Chữ nhỏ">S</button><button data-fs="m" aria-label="Chữ vừa">M</button><button data-fs="l" aria-label="Chữ lớn">L</button>
     </div>
-    <button class="icon-btn" id="theme" aria-label="Đổi giao diện sáng/tối">Sáng / Tối</button>
-    <span class="sync" id="sync" title="Trạng thái lưu tiến độ">Lưu trên trình duyệt</span>
+    <button class="icon-btn" id="theme" aria-label="Đổi giao diện sáng/tối" title="Sáng / Tối"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+    <button class="btn primary" id="acct-btn" style="padding:6px 14px">Đăng nhập</button>
   </div>
 </header>
 <main id="app"><div class="empty">Đang tải…</div></main>
-<div class="foot">100 chủ đề · 10 phần · mỗi bài 25 từ · Quiz đạt từ 70% được tính là hoàn thành.</div>
+<div class="foot">100 chủ đề · 10 phần · mỗi bài 25 từ · Quiz đạt từ 70% được tính là hoàn thành.<br>
+<a href="terms.html">Điều khoản sử dụng</a> · <a href="privacy.html">Chính sách bảo mật</a> · <a href="tokushoho.html">特定商取引法に基づく表記</a></div>
+<div class="modal-bg" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+  <form class="modal" id="auth-form" novalidate>
+    <h2 id="auth-title">Đăng nhập</h2>
+    <p class="muted" id="auth-sub" style="margin:0;font-size:.9em">Đăng nhập để lưu tiến độ trên mọi thiết bị và mở khóa các bài đã mua.</p>
+    <button type="button" class="btn gbtn" id="g-btn"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Tiếp tục với Google</button>
+    <div class="or">hoặc dùng email</div>
+    <label for="auth-email" class="muted" style="font-size:.85em">Email</label>
+    <input id="auth-email" type="email" autocomplete="email" required>
+    <label for="auth-pass" class="muted" style="font-size:.85em" id="auth-pass-lbl">Mật khẩu (tối thiểu 8 ký tự)</label>
+    <input id="auth-pass" type="password" autocomplete="current-password" minlength="8" required>
+    <div class="msg" id="auth-msg" role="status"></div>
+    <div class="row" id="auth-actions">
+      <button type="submit" class="btn primary" id="auth-signin">Đăng nhập</button>
+      <button type="button" class="btn" id="auth-signup">Tạo tài khoản</button>
+    </div>
+    <div style="display:flex;justify-content:space-between">
+      <button type="button" class="linkbtn" id="auth-forgot">Quên mật khẩu?</button>
+      <button type="button" class="linkbtn" id="auth-close">Đóng</button>
+    </div>
+  </form>
+</div>
 
 <script>
 const MANIFEST = {"modules":[{"id":1,"vi":"Cơ sở & Vật liệu","en":"Fundamentals & Materials","ja":"基礎と材料","topics":[{"id":1,"vi":"Cơ học cơ sở & Lực","en":"Basic Mechanics & Forces","ja":"力学の基礎と力","n":30},{"id":2,"vi":"Đơn vị, Đại lượng & Đo lường","en":"Units, Quantities & Measurement","ja":"単位・物理量・測定","n":30},{"id":3,"vi":"Kim loại & Hợp kim","en":"Metals & Alloys","ja":"金属と合金","n":30},{"id":4,"vi":"Polymer, Gốm & Composite","en":"Polymers, Ceramics & Composites","ja":"高分子・セラミックス・複合材料","n":30},{"id":5,"vi":"Tính chất & Thử nghiệm vật liệu","en":"Material Properties & Testing","ja":"材料特性と材料試験","n":30},{"id":6,"vi":"Nhiệt luyện","en":"Heat Treatment","ja":"熱処理","n":30},{"id":7,"vi":"Sức bền vật liệu","en":"Strength of Materials","ja":"材料力学","n":30},{"id":8,"vi":"Ăn mòn & Xử lý bề mặt","en":"Corrosion & Surface Treatment","ja":"腐食と表面処理","n":30},{"id":9,"vi":"Ma sát học: Ma sát, Mài mòn & Bôi trơn","en":"Tribology: Friction, Wear & Lubrication","ja":"トライボロジー（摩擦・摩耗・潤滑）","n":30},{"id":10,"vi":"An toàn lao động","en":"Workplace Safety","ja":"労働安全","n":30}],"lessons":[{"n":1,"start":0,"count":25,"topics":[1]},{"n":2,"start":25,"count":25,"topics":[1,2]},{"n":3,"start":50,"count":25,"topics":[2,3]},{"n":4,"start":75,"count":25,"topics":[3,4]},{"n":5,"start":100,"count":25,"topics":[4,5]},{"n":6,"start":125,"count":25,"topics":[5]},{"n":7,"start":150,"count":25,"topics":[6]},{"n":8,"start":175,"count":25,"topics":[6,7]},{"n":9,"start":200,"count":25,"topics":[7,8]},{"n":10,"start":225,"count":25,"topics":[8,9]},{"n":11,"start":250,"count":25,"topics":[9,10]},{"n":12,"start":275,"count":25,"topics":[10]}]},{"id":2,"vi":"Vẽ kỹ thuật & Thiết kế","en":"Engineering Drawing & Design","ja":"製図と設計","topics":[{"id":11,"vi":"Cơ bản về bản vẽ kỹ thuật","en":"Technical Drawing Basics","ja":"製図の基礎","n":30},{"id":12,"vi":"Hình chiếu & Mặt cắt","en":"Views, Projections & Sections","ja":"投影図と断面図","n":30},{"id":13,"vi":"Ghi kích thước","en":"Dimensioning","ja":"寸法記入","n":30},{"id":14,"vi":"Dung sai & Lắp ghép","en":"Tolerances & Fits","ja":"公差とはめあい","n":30},{"id":15,"vi":"Dung sai hình học (GD&T)","en":"Geometric Tolerancing (GD&T)","ja":"幾何公差","n":30},{"id":16,"vi":"Nhám & Chất lượng bề mặt","en":"Surface Texture & Roughness","ja":"表面性状と表面粗さ","n":30},{"id":17,"vi":"Phần mềm CAD & CAE","en":"CAD & CAE Software","ja":"CADとCAE","n":30},{"id":18,"vi":"Quy trình thiết kế & Phát triển sản phẩm","en":"Design Process & Product Development","ja":"設計プロセスと製品開発","n":30},{"id":19,"vi":"Tiêu chuẩn & Đặc tính kỹ thuật","en":"Standards & Specifications","ja":"規格と仕様","n":30},{"id":20,"vi":"Hồ sơ kỹ thuật & BOM","en":"Engineering Documents & BOM","ja":"技術文書と部品表","n":30}],"lessons":[{"n":13,"start":0,"count":25,"topics":[11]},{"n":14,"start":25,"count":25,"topics":[11,12]},{"n":15,"start":50,"count":25,"topics":[12,13]},{"n":16,"start":75,"count":25,"topics":[13,14]},{"n":17,"start":100,"count":25,"topics":[14,15]},{"n":18,"start":125,"count":25,"topics":[15]},{"n":19,"start":150,"count":25,"topics":[16]},{"n":20,"start":175,"count":25,"topics":[16,17]},{"n":21,"start":200,"count":25,"topics":[17,18]},{"n":22,"start":225,"count":25,"topics":[18,19]},{"n":23,"start":250,"count":25,"topics":[19,20]},{"n":24,"start":275,"count":25,"topics":[20]}]},{"id":3,"vi":"Chi tiết máy","en":"Machine Elements","ja":"機械要素","topics":[{"id":21,"vi":"Chi tiết ghép ren","en":"Threaded Fasteners","ja":"ねじ締結部品","n":30},{"id":22,"vi":"Trục, Then & Khớp nối","en":"Shafts, Keys & Couplings","ja":"軸・キー・軸継手","n":30},{"id":23,"vi":"Ổ trục","en":"Bearings","ja":"軸受","n":30},{"id":24,"vi":"Bánh răng","en":"Gears","ja":"歯車","n":30},{"id":25,"vi":"Đai, Xích & Puly","en":"Belts, Chains & Pulleys","ja":"ベルト・チェーン・プーリ","n":30},{"id":26,"vi":"Lò xo","en":"Springs","ja":"ばね","n":30},{"id":27,"vi":"Phớt & Gioăng","en":"Seals & Gaskets","ja":"シールとガスケット","n":30},{"id":28,"vi":"Ly hợp & Phanh","en":"Clutches & Brakes","ja":"クラッチとブレーキ","n":30},{"id":29,"vi":"Cam & Cơ cấu thanh","en":"Cams & Linkages","ja":"カムとリンク機構","n":30},{"id":30,"vi":"Mối ghép cố định: Hàn, Đinh tán & Dán","en":"Permanent Joints: Welds, Rivets & Adhesives","ja":"永久結合（溶接・リベット・接着）","n":30}],"lessons":[{"n":25,"start":0,"count":25,"topics":[21]},{"n":26,"start":25,"count":25,"topics":[21,22]},{"n":27,"start":50,"count":25,"topics":[22,23]},{"n":28,"start":75,"count":25,"topics":[23,24]},{"n":29,"start":100,"count":25,"topics":[24,25]},{"n":30,"start":125,"count":25,"topics":[25]},{"n":31,"start":150,"count":25,"topics":[26]},{"n":32,"start":175,"count":25,"topics":[26,27]},{"n":33,"start":200,"count":25,"topics":[27,28]},{"n":34,"start":225,"count":25,"topics":[28,29]},{"n":35,"start":250,"count":25,"topics":[29,30]},{"n":36,"start":275,"count":25,"topics":[30]}]},{"id":4,"vi":"Phương pháp gia công","en":"Manufacturing Processes","ja":"加工法","topics":[{"id":31,"vi":"Đúc","en":"Casting","ja":"鋳造","n":30},{"id":32,"vi":"Rèn, Cán & Đùn","en":"Forging, Rolling & Extrusion","ja":"鍛造・圧延・押出し","n":30},{"id":33,"vi":"Gia công kim loại tấm","en":"Sheet Metal Working","ja":"板金加工","n":30},{"id":34,"vi":"Các phương pháp hàn","en":"Welding Processes","ja":"溶接法","n":28},{"id":35,"vi":"Tiện","en":"Turning","ja":"旋削加工","n":30},{"id":36,"vi":"Phay","en":"Milling","ja":"フライス加工","n":30},{"id":37,"vi":"Khoan, Khoét, Doa & Ta rô","en":"Drilling, Boring, Reaming & Tapping","ja":"穴あけ・中ぐり・リーマ・タップ加工","n":30},{"id":38,"vi":"Mài & Gia công tinh","en":"Grinding & Surface Finishing","ja":"研削と仕上げ加工","n":30},{"id":39,"vi":"Gia công đặc biệt","en":"Non-traditional Machining","ja":"特殊加工","n":30},{"id":40,"vi":"Sản xuất bồi đắp (In 3D)","en":"Additive Manufacturing","ja":"積層造形","n":30}],"lessons":[{"n":37,"start":0,"count":25,"topics":[31]},{"n":38,"start":25,"count":25,"topics":[31,32]},{"n":39,"start":50,"count":25,"topics":[32,33]},{"n":40,"start":75,"count":25,"topics":[33,34]},{"n":41,"start":100,"count":25,"topics":[34,35]},{"n":42,"start":125,"count":25,"topics":[35,36]},{"n":43,"start":150,"count":25,"topics":[36]},{"n":44,"start":175,"count":25,"topics":[36,37]},{"n":45,"start":200,"count":25,"topics":[37,38]},{"n":46,"start":225,"count":25,"topics":[38,39]},{"n":47,"start":250,"count":25,"topics":[39,40]},{"n":48,"start":275,"count":23,"topics":[40]}]},{"id":5,"vi":"Máy công cụ & Sản xuất","en":"Machine Tools & Production","ja":"工作機械と生産","topics":[{"id":41,"vi":"Máy CNC & Lập trình","en":"CNC Machines & Programming","ja":"NC工作機械とプログラミング","n":30},{"id":42,"vi":"Dụng cụ cắt & Mòn dao","en":"Cutting Tools & Tool Wear","ja":"切削工具と工具摩耗","n":30},{"id":43,"vi":"Đồ gá & Kẹp phôi","en":"Jigs, Fixtures & Workholding","ja":"治具と工作物保持","n":30},{"id":44,"vi":"Ép phun & Gia công nhựa","en":"Injection Molding & Plastics Processing","ja":"射出成形とプラスチック加工","n":24},{"id":45,"vi":"Luyện kim bột","en":"Powder Metallurgy","ja":"粉末冶金","n":30},{"id":46,"vi":"Lắp ráp","en":"Assembly","ja":"組立","n":29},{"id":47,"vi":"Lập kế hoạch & Điều độ sản xuất","en":"Production Planning & Control","ja":"生産計画と生産管理","n":30},{"id":48,"vi":"Sản xuất tinh gọn (Lean)","en":"Lean Manufacturing","ja":"リーン生産方式","n":30},{"id":49,"vi":"Robot công nghiệp & Tự động hóa","en":"Industrial Robots & Automation","ja":"産業用ロボットと自動化","n":30},{"id":50,"vi":"Bảo trì","en":"Maintenance","ja":"保全","n":30}],"lessons":[{"n":49,"start":0,"count":25,"topics":[41]},{"n":50,"start":25,"count":25,"topics":[41,42]},{"n":51,"start":50,"count":25,"topics":[42,43]},{"n":52,"start":75,"count":25,"topics":[43,44]},{"n":53,"start":100,"count":25,"topics":[44,45]},{"n":54,"start":125,"count":25,"topics":[45,46]},{"n":55,"start":150,"count":25,"topics":[46,47]},{"n":56,"start":175,"count":25,"topics":[47]},{"n":57,"start":200,"count":25,"topics":[47,48]},{"n":58,"start":225,"count":25,"topics":[48,49]},{"n":59,"start":250,"count":25,"topics":[49,50]},{"n":60,"start":275,"count":18,"topics":[50]}]},{"id":6,"vi":"Đo lường, Chất lượng & Độ tin cậy","en":"Metrology, Quality & Reliability","ja":"計測・品質・信頼性","topics":[{"id":51,"vi":"Dụng cụ đo","en":"Measuring Instruments","ja":"測定器","n":30},{"id":52,"vi":"Kiểm tra kích thước & Máy CMM","en":"Dimensional Inspection & CMM","ja":"寸法検査と三次元測定","n":30},{"id":53,"vi":"Kiểm soát chất lượng & SPC","en":"Quality Control & SPC","ja":"品質管理と統計的工程管理","n":30},{"id":54,"vi":"Hệ thống quản lý chất lượng","en":"Quality Management Systems","ja":"品質マネジメントシステム","n":30},{"id":55,"vi":"Kiểm tra không phá hủy","en":"Non-destructive Testing","ja":"非破壊検査","n":30},{"id":56,"vi":"Phân tích hư hỏng","en":"Failure Analysis","ja":"故障解析","n":30},{"id":57,"vi":"Mỏi & Phá hủy","en":"Fatigue & Fracture","ja":"疲労と破壊","n":30},{"id":58,"vi":"Rung động & Tiếng ồn","en":"Vibration & Noise","ja":"振動と騒音","n":30},{"id":59,"vi":"Hiệu chuẩn & Độ không đảm bảo đo","en":"Calibration & Measurement Uncertainty","ja":"校正と測定不確かさ","n":30},{"id":60,"vi":"Độ tin cậy & Giải quyết vấn đề","en":"Reliability & Problem Solving","ja":"信頼性と問題解決","n":30}],"lessons":[{"n":61,"start":0,"count":25,"topics":[51]},{"n":62,"start":25,"count":25,"topics":[51,52]},{"n":63,"start":50,"count":25,"topics":[52,53]},{"n":64,"start":75,"count":25,"topics":[53,54]},{"n":65,"start":100,"count":25,"topics":[54,55]},{"n":66,"start":125,"count":25,"topics":[55]},{"n":67,"start":150,"count":25,"topics":[56]},{"n":68,"start":175,"count":25,"topics":[56,57]},{"n":69,"start":200,"count":25,"topics":[57,58]},{"n":70,"start":225,"count":25,"topics":[58,59]},{"n":71,"start":250,"count":25,"topics":[59,60]},{"n":72,"start":275,"count":25,"topics":[60]}]},{"id":7,"vi":"Nhiệt động lực học & Năng lượng","en":"Thermodynamics & Energy","ja":"熱力学とエネルギー","topics":[{"id":61,"vi":"Cơ sở nhiệt động lực học","en":"Thermodynamic Fundamentals","ja":"熱力学の基礎","n":30},{"id":62,"vi":"Các chu trình nhiệt động","en":"Thermodynamic Cycles","ja":"熱力学サイクル","n":30},{"id":63,"vi":"Truyền nhiệt","en":"Heat Transfer","ja":"伝熱","n":30},{"id":64,"vi":"Thiết bị trao đổi nhiệt","en":"Heat Exchangers","ja":"熱交換器","n":30},{"id":65,"vi":"Lò hơi & Hệ thống hơi","en":"Boilers & Steam Systems","ja":"ボイラと蒸気設備","n":30},{"id":66,"vi":"Lạnh & Điều hòa không khí (HVAC)","en":"Refrigeration & HVAC","ja":"冷凍と空調","n":30},{"id":67,"vi":"Động cơ đốt trong","en":"Internal Combustion Engines","ja":"内燃機関","n":30},{"id":68,"vi":"Tuabin khí & Động cơ phản lực","en":"Gas Turbines & Jet Engines","ja":"ガスタービンとジェットエンジン","n":30},{"id":69,"vi":"Cháy & Nhiên liệu","en":"Combustion & Fuels","ja":"燃焼と燃料","n":30},{"id":70,"vi":"Hệ thống năng lượng tái tạo","en":"Renewable Energy Systems","ja":"再生可能エネルギーシステム","n":30}],"lessons":[{"n":73,"start":0,"count":25,"topics":[61]},{"n":74,"start":25,"count":25,"topics":[61,62]},{"n":75,"start":50,"count":25,"topics":[62,63]},{"n":76,"start":75,"count":25,"topics":[63,64]},{"n":77,"start":100,"count":25,"topics":[64,65]},{"n":78,"start":125,"count":25,"topics":[65]},{"n":79,"start":150,"count":25,"topics":[66]},{"n":80,"start":175,"count":25,"topics":[66,67]},{"n":81,"start":200,"count":25,"topics":[67,68]},{"n":82,"start":225,"count":25,"topics":[68,69]},{"n":83,"start":250,"count":25,"topics":[69,70]},{"n":84,"start":275,"count":25,"topics":[70]}]},{"id":8,"vi":"Cơ học chất lưu & Truyền động thủy khí","en":"Fluid Mechanics & Fluid Power","ja":"流体力学と流体動力","topics":[{"id":71,"vi":"Tính chất chất lưu & Thủy tĩnh","en":"Fluid Properties & Hydrostatics","ja":"流体の性質と静水力学","n":30},{"id":72,"vi":"Dòng chảy & Thủy động lực học","en":"Fluid Flow & Dynamics","ja":"流れと流体力学","n":30},{"id":73,"vi":"Ống, Van & Phụ kiện","en":"Pipes, Valves & Fittings","ja":"配管・バルブ・継手","n":30},{"id":74,"vi":"Bơm","en":"Pumps","ja":"ポンプ","n":30},{"id":75,"vi":"Máy nén, Quạt & Máy thổi","en":"Compressors, Fans & Blowers","ja":"圧縮機・ファン・ブロワ","n":30},{"id":76,"vi":"Thủy lực","en":"Hydraulics","ja":"油圧","n":30},{"id":77,"vi":"Khí nén","en":"Pneumatics","ja":"空気圧","n":30},{"id":78,"vi":"Tuabin & Máy cánh dẫn","en":"Turbines & Turbomachinery","ja":"タービンとターボ機械","n":30},{"id":79,"vi":"Động lực học chất lưu tính toán (CFD)","en":"Computational Fluid Dynamics","ja":"数値流体力学","n":30},{"id":80,"vi":"Đường ống nhà máy & Thiết bị công nghệ","en":"Plant Piping & Process Equipment","ja":"プラント配管とプロセス機器","n":30}],"lessons":[{"n":85,"start":0,"count":25,"topics":[71]},{"n":86,"start":25,"count":25,"topics":[71,72]},{"n":87,"start":50,"count":25,"topics":[72,73]},{"n":88,"start":75,"count":25,"topics":[73,74]},{"n":89,"start":100,"count":25,"topics":[74,75]},{"n":90,"start":125,"count":25,"topics":[75]},{"n":91,"start":150,"count":25,"topics":[76]},{"n":92,"start":175,"count":25,"topics":[76,77]},{"n":93,"start":200,"count":25,"topics":[77,78]},{"n":94,"start":225,"count":25,"topics":[78,79]},{"n":95,"start":250,"count":25,"topics":[79,80]},{"n":96,"start":275,"count":25,"topics":[80]}]},{"id":9,"vi":"Động lực học, Điều khiển & Cơ điện tử","en":"Dynamics, Control & Mechatronics","ja":"力学・制御・メカトロニクス","topics":[{"id":81,"vi":"Động học & Động lực học","en":"Kinematics & Dynamics","ja":"運動学と動力学","n":30},{"id":82,"vi":"Cơ cấu & Truyền động","en":"Mechanisms & Power Transmission","ja":"機構と動力伝達","n":30},{"id":83,"vi":"Kỹ thuật điều khiển","en":"Control Engineering","ja":"制御工学","n":30},{"id":84,"vi":"Cảm biến & Bộ chuyển đổi","en":"Sensors & Transducers","ja":"センサと変換器","n":30},{"id":85,"vi":"Cơ cấu chấp hành & Động cơ điện","en":"Actuators & Electric Motors","ja":"アクチュエータと電動機","n":30},{"id":86,"vi":"Điện cơ bản cho kỹ sư cơ khí","en":"Electrical Basics for Mechanical Engineers","ja":"機械技術者のための電気の基礎","n":30},{"id":87,"vi":"PLC & Điều khiển công nghiệp","en":"PLC & Industrial Control","ja":"PLCと産業制御","n":30},{"id":88,"vi":"Cơ điện tử & Hệ thống nhúng","en":"Mechatronics & Embedded Systems","ja":"メカトロニクスと組込みシステム","n":30},{"id":89,"vi":"Phân tích phần tử hữu hạn (FEA)","en":"Finite Element Analysis","ja":"有限要素解析","n":27},{"id":90,"vi":"Thử nghiệm, Mô phỏng & Xác nhận","en":"Testing, Simulation & Validation","ja":"試験・シミュレーション・妥当性確認","n":30}],"lessons":[{"n":97,"start":0,"count":25,"topics":[81]},{"n":98,"start":25,"count":25,"topics":[81,82]},{"n":99,"start":50,"count":25,"topics":[82,83]},{"n":100,"start":75,"count":25,"topics":[83,84]},{"n":101,"start":100,"count":25,"topics":[84,85]},{"n":102,"start":125,"count":25,"topics":[85]},{"n":103,"start":150,"count":25,"topics":[86]},{"n":104,"start":175,"count":25,"topics":[86,87]},{"n":105,"start":200,"count":25,"topics":[87,88]},{"n":106,"start":225,"count":25,"topics":[88,89]},{"n":107,"start":250,"count":25,"topics":[89,90]},{"n":108,"start":275,"count":22,"topics":[90]}]},{"id":10,"vi":"Ngành ứng dụng & Thực hành nghề","en":"Industry & Professional Practice","ja":"産業分野と実務","topics":[{"id":91,"vi":"Kỹ thuật ô tô","en":"Automotive Engineering","ja":"自動車工学","n":30},{"id":92,"vi":"Kỹ thuật hàng không vũ trụ","en":"Aerospace Engineering","ja":"航空宇宙工学","n":30},{"id":93,"vi":"Kỹ thuật đường sắt","en":"Railway Engineering","ja":"鉄道工学","n":30},{"id":94,"vi":"Kỹ thuật tàu thủy & Đóng tàu","en":"Marine Engineering & Shipbuilding","ja":"舶用工学と造船","n":30},{"id":95,"vi":"Máy xây dựng & Thiết bị nặng","en":"Construction & Heavy Machinery","ja":"建設機械と重機","n":30},{"id":96,"vi":"Vận chuyển vật liệu & Nâng hạ","en":"Material Handling & Lifting","ja":"マテリアルハンドリングと揚重","n":30},{"id":97,"vi":"Nhà máy điện","en":"Power Plants","ja":"発電所","n":29},{"id":98,"vi":"Quản lý dự án kỹ thuật","en":"Engineering Project Management","ja":"エンジニアリングのプロジェクト管理","n":30},{"id":99,"vi":"Mua sắm, Hợp đồng & Chuỗi cung ứng","en":"Procurement, Contracts & Supply Chain","ja":"調達・契約・サプライチェーン","n":30},{"id":100,"vi":"Giao tiếp kỹ thuật & Báo cáo","en":"Technical Communication & Reporting","ja":"技術コミュニケーションと報告","n":30}],"lessons":[{"n":109,"start":0,"count":25,"topics":[91]},{"n":110,"start":25,"count":25,"topics":[91,92]},{"n":111,"start":50,"count":25,"topics":[92,93]},{"n":112,"start":75,"count":25,"topics":[93,94]},{"n":113,"start":100,"count":25,"topics":[94,95]},{"n":114,"start":125,"count":25,"topics":[95]},{"n":115,"start":150,"count":25,"topics":[96]},{"n":116,"start":175,"count":25,"topics":[96,97]},{"n":117,"start":200,"count":25,"topics":[97,98]},{"n":118,"start":225,"count":25,"topics":[98,99]},{"n":119,"start":250,"count":25,"topics":[99,100]},{"n":120,"start":275,"count":24,"topics":[100]}]}]};
@@ -268,24 +336,24 @@ const READY = LESSONS.filter(l => !l.pending);
 const TOTAL_WORDS = READY.reduce((s,l)=>s+l.count,0);
 const lessonByN = n => LESSONS.find(l => l.n === n);
 
+/* ---------- Supabase ---------- */
+const CFG = window.MV_CONFIG || {};
+const FREE = new Set(CFG.freeModules || [1]);
+let sb = null;
+try{ if (window.supabase && CFG.supabaseUrl && !/YOUR_/.test(CFG.supabaseUrl)) sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey, { auth: { flowType: 'pkce' } }); }catch(e){}
+let session = null, user = null, access = {en:false, ja:false}, ents = [];
+const unlocked = mid => FREE.has(mid) || access[prefs.track];
+class LockedError extends Error { constructor(){ super('locked'); this.locked = true; } }
+
 async function loadModule(id){
-  if (cache[id]) return cache[id];
-  const nn = String(id).padStart(2,'0');
-  let d = null;
-  if (location.protocol !== 'file:'){
-    try{ const r = await fetch('data/m' + nn + '.json'); if (r.ok) d = await r.json(); }catch(e){}
-  }
-  if (!d){
-    window.MV_DATA = window.MV_DATA || {};
-    if (!window.MV_DATA[id]) await new Promise((ok, no) => {
-      const sc = document.createElement('script'); sc.src = 'data/m' + nn + '.js';
-      sc.onload = ok; sc.onerror = () => no(new Error('Không tải được dữ liệu phần ' + id + '. Hãy giữ thư mục "data" nằm cạnh file index.html'));
-      document.head.appendChild(sc);
-    });
-    d = window.MV_DATA[id];
-  }
-  d.flat = []; d.topics.forEach(t => t.words.forEach(w => { w.t = t.id; d.flat.push(w); }));
-  cache[id] = d; return d;
+  const key = prefs.track + ':' + id;
+  if (cache[key]) return cache[key];
+  if (!sb) throw new Error('Website chưa được kết nối máy chủ (thiếu cấu hình Supabase trong config.js)');
+  if (!unlocked(id)) throw new LockedError();
+  const { data, error } = await sb.rpc('get_module', { p_module: id, p_track: prefs.track });
+  if (error){ if (/LOCKED/.test(error.message || '')) throw new LockedError(); throw new Error('Không tải được dữ liệu: ' + error.message); }
+  const d = data; d.flat = []; d.topics.forEach(t => t.words.forEach(w => { w.t = t.id; d.flat.push(w); }));
+  cache[key] = d; return d;
 }
 async function lessonWords(n){
   const l = lessonByN(n); const m = await loadModule(l.m);
@@ -325,7 +393,7 @@ function lessonStatus(n){
   return {cls:'tried', label:`Đã làm · ${p.best}%`};
 }
 function nextLesson(){
-  for (const l of READY){ const p = progress[prefs.track][l.n]; if (!p || p.best < PASS) return l.n; }
+  for (const l of READY){ if (!unlocked(l.m)) continue; const p = progress[prefs.track][l.n]; if (!p || p.best < PASS) return l.n; }
   return null;
 }
 function topicLabel(l){ return l.topics.map(id => topicById[id].vi).join(' · '); }
@@ -369,6 +437,7 @@ function viewRoadmap(){
       <div class="hero-actions">
         ${nx ? `<a class="btn primary" href="#lesson-${nx}" style="text-decoration:none">${tr[nx] ? 'Tiếp tục' : 'Bắt đầu'} bài ${nx}</a>` : `<span class="chip lv1">Đã hoàn thành toàn bộ lộ trình</span>`}
         <a class="btn" href="#topics" style="text-decoration:none">Xem 100 chủ đề</a>
+        ${access[prefs.track] ? '' : `<a class="btn" href="#pricing" style="text-decoration:none">Mở khóa toàn bộ</a>`}
       </div>
     </div>
     <div class="card stats">
@@ -385,14 +454,14 @@ function viewRoadmap(){
     h += `<section class="card module">
       <div class="mod-head">
         <span class="mod-no">PHẦN ${String(m.id).padStart(2,'0')}</span>
-        <div><h2>${esc(m.vi)}</h2><div class="sub">${esc(m.en)} · <span class="jp">${esc(m.ja)}</span></div></div>
+        <div><h2>${esc(m.vi)}${FREE.has(m.id) ? '<span class="free-badge">MIỄN PHÍ</span>' : (unlocked(m.id) ? '' : '<span class="lock-badge">🔒 CẦN MỞ KHÓA</span>')}</h2><div class="sub">${esc(m.en)} · <span class="jp">${esc(m.ja)}</span></div></div>
         <div class="mod-pct">${d}/${ls.length} bài<div class="prog-bar mini"><i style="width:${Math.round(d/ls.length*100)}%"></i></div></div>
       </div>
-      <div class="lessons">${ls.map(l => { if (l.pending) return `<div class="ltile" style="opacity:.55"><span class="ln">BÀI ${String(l.n).padStart(3,'0')}</span><span class="lt">${esc(topicLabel(l))}</span><span class="ls">Đang soạn…</span></div>`; const s = lessonStatus(l.n);
-        return `<a class="ltile ${s.cls} ${l.n===nx?'next':''}" href="#lesson-${l.n}">
+      <div class="lessons">${ls.map(l => { if (l.pending) return `<div class="ltile" style="opacity:.55"><span class="ln">BÀI ${String(l.n).padStart(3,'0')}</span><span class="lt">${esc(topicLabel(l))}</span><span class="ls">Đang soạn…</span></div>`; const s = lessonStatus(l.n); const lk = !unlocked(l.m);
+        return `<a class="ltile ${lk?'locked':s.cls} ${l.n===nx?'next':''}" href="${lk?'#pricing':'#lesson-'+l.n}">
           <span class="ln">BÀI ${String(l.n).padStart(3,'0')} · ${l.count} từ</span>
           <span class="lt">${esc(topicLabel(l))}</span>
-          <span class="ls">${l.n===nx && !s.cls ? '▶ Học tiếp' : s.label}</span></a>`; }).join('')}
+          <span class="ls">${lk ? '🔒 Mở khóa để học' : (l.n===nx && !s.cls ? '▶ Học tiếp' : s.label)}</span></a>`; }).join('')}
       </div></section>`;
   });
   app.innerHTML = h;
@@ -636,10 +705,11 @@ async function search(s){
   const out = document.getElementById('sr'); s = s.trim().toLowerCase();
   if (s.length < 2){ out.innerHTML = ''; return; }
   out.innerHTML = '<div class="empty">Đang tìm…</div>';
-  const mods = await Promise.all(MANIFEST.modules.filter(m => m.topics.some(t => t.n)).map(m => loadModule(m.id)));
+  const mods = await Promise.all(MANIFEST.modules.filter(m => unlocked(m.id)).map(m => loadModule(m.id)));
   const hits = [];
-  mods.forEach(m => m.flat.forEach(w => { if ((w.en+' '+w.vi+' '+w.ja+' '+w.kana+' '+w.romaji).toLowerCase().includes(s)) hits.push(w); }));
-  out.innerHTML = hits.length ? `<p class="muted">${hits.length} kết quả${hits.length>40?' (hiện 40 đầu tiên)':''}</p><div class="words" style="margin-bottom:22px">${hits.slice(0,40).map(wordRow).join('')}</div>` : '<div class="empty">Không tìm thấy từ phù hợp.</div>';
+  mods.forEach(m => m.flat.forEach(w => { if ([w.en,w.vi,w.ja,w.kana,w.romaji].join(' ').toLowerCase().includes(s)) hits.push(w); }));
+  const lockedNote = access[prefs.track] ? '' : ' · chỉ tìm trong các phần đã mở khóa';
+  out.innerHTML = hits.length ? `<p class="muted">${hits.length} kết quả${lockedNote}${hits.length>40?' (hiện 40 đầu tiên)':''}</p><div class="words" style="margin-bottom:22px">${hits.slice(0,40).map(wordRow).join('')}</div>` : `<div class="empty">Không tìm thấy từ phù hợp${lockedNote}.</div>`;
   bindToggles();
 }
 async function viewTopic(id){
@@ -664,46 +734,280 @@ async function route(){
     if ((m = h.match(/^quiz-(\d+)$/))) return await viewQuiz(+m[1]);
     if ((m = h.match(/^topic-(\d+)$/))) return await viewTopic(+m[1]);
     if (h === 'topics') return viewTopics();
+    if (h === 'pricing') return await viewPricing();
+    if (h === 'account') return await viewAccount();
     viewRoadmap(); window.scrollTo(0,0);
-  }catch(e){ app.innerHTML = `<div class="empty">${esc(e.message)} — hãy tải lại trang.</div>`; }
+  }catch(e){
+    if (e.locked) return viewPaywall();
+    app.innerHTML = `<div class="empty">${esc(e.message)}</div>`;
+  }
 }
 window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#quiz-')) quizState = quizState && quizState.finished ? null : quizState; route(); });
 
-/* ---------- cloud sync (signed-in viewers) ---------- */
-let cloudRef = null, cloudBusy = false, cloudDirty = false;
-const syncEl = document.getElementById('sync');
+/* ---------- trang khóa (paywall) ---------- */
+function viewPaywall(){
+  setNav('');
+  const langName = isJA() ? 'tiếng Nhật' : 'tiếng Anh';
+  app.innerHTML = `<div class="card paywall">
+    <div class="q-type">Nội dung trả phí</div>
+    <h2>Bài này cần mở khóa lộ trình ${langName}</h2>
+    <p class="muted">Phần 1 (12 bài) học miễn phí. Mở khóa để học toàn bộ ${READY.length} bài, ${TOTAL_WORDS.toLocaleString('vi-VN')} thuật ngữ, làm quiz và lưu tiến độ trên mọi thiết bị.</p>
+    <div class="hero-actions" style="justify-content:center;margin-top:14px">
+      <a class="btn primary" href="#pricing" style="text-decoration:none">Xem bảng giá</a>
+      ${user ? '' : '<button class="btn" data-login>Đăng nhập (nếu đã mua)</button>'}
+      <a class="btn" href="#roadmap" style="text-decoration:none">Về lộ trình</a>
+    </div></div>`;
+}
+
+/* ---------- bảng giá ---------- */
+const fmtVND = n => n.toLocaleString('vi-VN') + ' ₫';
+const fmtJPY = n => '¥' + n.toLocaleString('ja-JP');
+const SCOPE = {all:'Tiếng Anh + Tiếng Nhật', en:'Tiếng Anh', ja:'Tiếng Nhật'};
+let PRODUCTS = null;
+async function loadProducts(){
+  if (PRODUCTS) return PRODUCTS;
+  if (!sb) throw new Error('Website chưa được kết nối máy chủ (thiếu cấu hình Supabase trong config.js)');
+  const { data, error } = await sb.from('products').select('*').order('sort');
+  if (error) throw new Error('Không tải được bảng giá: ' + error.message);
+  return PRODUCTS = data;
+}
+async function viewPricing(){
+  setNav('pricing');
+  app.innerHTML = '<div class="empty">Đang tải bảng giá…</div>';
+  const ps = await loadProducts();
+  const has = s => ents.some(e => e.scope === s && (!e.expires_at || new Date(e.expires_at) > new Date()));
+  app.innerHTML = `
+  <div class="toolbar"><h1 style="font-size:1.6em" class="grow">Bảng giá</h1></div>
+  <p class="muted" style="max-width:70ch;margin-top:-6px">Phần 1 (12 bài) luôn miễn phí cho cả hai ngôn ngữ. Chọn gói để mở khóa ${READY.length} bài và ${TOTAL_WORDS.toLocaleString('vi-VN')} thuật ngữ. Thanh toán bằng <b>QR chuyển khoản ngân hàng Việt Nam</b> (VNĐ) hoặc <b>thẻ Visa/Mastercard/JCB</b> (Yên Nhật).</p>
+  ${!user ? '<div class="banner info">Bạn cần <button class="linkbtn" data-login>đăng nhập</button> trước khi mua, để gói được gắn vào tài khoản của bạn.</div>' : ''}
+  <div class="plans">${ps.map(p => `
+    <div class="card plan ${p.highlight?'hl':''}">
+      ${p.highlight ? '<span class="tag">Tiết kiệm nhất</span>' : ''}
+      <h3>${esc(p.name_vi)}</h3>
+      <div class="price">${fmtVND(p.price_vnd)}<small> ${p.days ? '/ ' + p.days + ' ngày' : 'một lần'}</small></div>
+      <div class="alt">hoặc ${fmtJPY(p.price_jpy)} khi trả bằng thẻ</div>
+      <ul><li>${esc(SCOPE[p.scope])}</li><li>${p.days ? `Thời hạn ${p.days} ngày, không tự gia hạn` : 'Dùng trọn đời'}</li><li>${esc(p.desc_vi)}</li></ul>
+      ${has(p.scope) && !p.days ? '<span class="chip lv1">Bạn đã sở hữu gói này</span>' : ''}
+      <div class="pay">
+        <button class="btn primary" data-buy="${esc(p.id)}" data-prov="payos">QR ngân hàng VN · ${fmtVND(p.price_vnd)}</button>
+        <button class="btn" data-buy="${esc(p.id)}" data-prov="stripe">Thẻ quốc tế · ${fmtJPY(p.price_jpy)}</button>
+      </div>
+    </div>`).join('')}</div>
+  <p class="note">Gói tháng/năm không tự động trừ tiền. Mua thêm khi còn hạn sẽ được cộng dồn thời gian. Sau khi thanh toán, quyền học được mở tự động trong vài giây. Xem <a href="terms.html">điều khoản</a> và <a href="tokushoho.html">thông tin người bán</a>.</p>
+  <div class="msg err" id="buy-msg" role="status"></div>`;
+  app.querySelectorAll('[data-buy]').forEach(b => b.onclick = () => buy(b.dataset.buy, b.dataset.prov, b));
+}
+async function buy(productId, provider, btn){
+  const msg = document.getElementById('buy-msg');
+  if (!user){ openAuth('Đăng nhập hoặc tạo tài khoản để mua gói.'); return; }
+  const old = btn.textContent; btn.disabled = true; btn.textContent = 'Đang chuyển tới trang thanh toán…'; msg.textContent = '';
+  try{
+    const { data: { session: s } } = await sb.auth.getSession();
+    const r = await fetch(CFG.supabaseUrl.replace(/\/$/,'') + '/functions/v1/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + s.access_token, apikey: CFG.supabaseAnonKey },
+      body: JSON.stringify({ product_id: productId, provider })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.url) throw new Error(j.error || ('Lỗi ' + r.status));
+    try{ sessionStorage.setItem('mv.pending', String(Date.now())); }catch(e){}
+    location.href = j.url;
+  }catch(e){
+    msg.textContent = 'Không tạo được thanh toán: ' + e.message;
+    btn.disabled = false; btn.textContent = old;
+  }
+}
+
+/* ---------- tài khoản ---------- */
+let pollTimer = null;
+async function viewAccount(){
+  setNav('');
+  if (!user){
+    app.innerHTML = `<div class="card paywall"><h2>Tài khoản</h2><p class="muted">Đăng nhập để xem gói đã mua và lịch sử thanh toán.</p><button class="btn primary" data-login>Đăng nhập</button></div>`;
+    return;
+  }
+  app.innerHTML = '<div class="empty">Đang tải tài khoản…</div>';
+  await refreshAccess();
+  const { data: orders } = await sb.from('orders').select('order_code,product_id,provider,amount,currency,status,created_at,paid_at').order('created_at', { ascending: false }).limit(30);
+  const ps = await loadProducts().catch(() => []);
+  const pname = id => (ps.find(p => p.id === id) || {}).name_vi || id;
+  let since = 0; try{ since = +sessionStorage.getItem('mv.pending') || 0; }catch(e){}
+  const waiting = since && Date.now() - since < 30*60*1000 && (orders||[]).some(o => o.status === 'pending' && new Date(o.created_at).getTime() >= since - 60000);
+  const justPaid = since && (orders||[]).some(o => o.status === 'paid' && new Date(o.paid_at).getTime() >= since - 60000);
+  if (justPaid){ try{ sessionStorage.removeItem('mv.pending'); }catch(e){} }
+  const now = new Date();
+  const active = ents.filter(e => !e.expires_at || new Date(e.expires_at) > now);
+  const fmtD = d => new Date(d).toLocaleDateString('vi-VN');
+  const fmtAmt = o => o.currency === 'VND' ? fmtVND(o.amount) : fmtJPY(o.amount);
+  const ST = {paid:'Đã thanh toán', pending:'Chờ thanh toán', cancelled:'Đã hủy'};
+  app.innerHTML = `
+  ${justPaid ? '<div class="banner ok">Thanh toán thành công! Các bài học đã được mở khóa.</div>' : ''}
+  ${waiting && !justPaid ? '<div class="banner info">Đang chờ xác nhận thanh toán… Trang sẽ tự cập nhật trong vài giây.</div>' : ''}
+  <div class="toolbar"><h1 style="font-size:1.6em" class="grow">Tài khoản</h1><button class="btn" id="signout">Đăng xuất</button></div>
+  <div class="acct-grid">
+    <div class="card acct-card"><h2>Thông tin</h2>
+      <p style="margin:0">${esc(user.email || '')}</p>
+      <p class="muted" style="margin:4px 0 0;font-size:.85em">Đăng nhập bằng ${esc((user.app_metadata && user.app_metadata.provider) === 'google' ? 'Google' : 'Email')}</p>
+      <p class="muted" style="margin:10px 0 0;font-size:.85em">Tiến độ học được đồng bộ tự động theo tài khoản.</p>
+    </div>
+    <div class="card acct-card"><h2>Quyền học</h2>
+      ${active.length ? active.map(e => `<p style="margin:0 0 6px"><span class="chip lv1">Đang mở</span> ${esc(SCOPE[e.scope])} · ${e.expires_at ? 'đến ' + fmtD(e.expires_at) : 'trọn đời'}</p>`).join('')
+        : `<p class="muted" style="margin:0 0 10px">Bạn đang dùng bản miễn phí (Phần 1).</p><a class="btn primary" href="#pricing" style="text-decoration:none">Xem bảng giá</a>`}
+    </div>
+  </div>
+  <div class="card acct-card" style="margin-top:16px;overflow-x:auto"><h2>Lịch sử thanh toán</h2>
+    ${(orders||[]).length ? `<table class="orders"><thead><tr><th>Ngày</th><th>Gói</th><th>Số tiền</th><th>Phương thức</th><th>Trạng thái</th><th>Mã đơn</th></tr></thead><tbody>
+      ${orders.map(o => `<tr><td>${fmtD(o.created_at)}</td><td>${esc(pname(o.product_id))}</td><td>${fmtAmt(o)}</td><td>${o.provider === 'payos' ? 'QR ngân hàng' : 'Thẻ quốc tế'}</td><td class="st-${o.status}">${ST[o.status] || o.status}</td><td class="mono">${o.order_code}</td></tr>`).join('')}
+    </tbody></table>` : '<p class="muted" style="margin:0">Chưa có giao dịch.</p>'}
+  </div>`;
+  document.getElementById('signout').onclick = async () => { await sb.auth.signOut(); location.hash = '#roadmap'; };
+  clearTimeout(pollTimer);
+  if (waiting && !justPaid) pollTimer = setTimeout(() => { if (location.hash === '#account') viewAccount(); }, 4000);
+}
+
+/* ---------- quyền học ---------- */
+async function refreshAccess(){
+  if (!sb || !user){ ents = []; access = {en:false, ja:false}; return; }
+  const { data } = await sb.from('entitlements').select('scope,expires_at,created_at').order('created_at', { ascending: false });
+  ents = data || [];
+  const now = new Date();
+  const ok = s => ents.some(e => (e.scope === 'all' || e.scope === s) && (!e.expires_at || new Date(e.expires_at) > now));
+  access = { en: ok('en'), ja: ok('ja') };
+}
+
+/* ---------- đăng nhập ---------- */
+const modal = document.getElementById('auth-modal');
+const aMsg = document.getElementById('auth-msg');
+let authMode = 'login';
+function setAuthMode(m){
+  authMode = m;
+  const reset = m === 'reset', forgot = m === 'forgot';
+  document.getElementById('auth-title').textContent = reset ? 'Đặt mật khẩu mới' : forgot ? 'Quên mật khẩu' : 'Đăng nhập';
+  document.getElementById('g-btn').hidden = reset || forgot;
+  document.querySelector('.or').hidden = reset || forgot;
+  document.getElementById('auth-email').hidden = reset;
+  document.querySelector('label[for="auth-email"]').hidden = reset;
+  document.getElementById('auth-pass').hidden = forgot;
+  document.getElementById('auth-pass-lbl').hidden = forgot;
+  document.getElementById('auth-pass-lbl').textContent = reset ? 'Mật khẩu mới (tối thiểu 8 ký tự)' : 'Mật khẩu (tối thiểu 8 ký tự)';
+  document.getElementById('auth-pass').autocomplete = reset ? 'new-password' : 'current-password';
+  document.getElementById('auth-signin').textContent = reset ? 'Lưu mật khẩu' : forgot ? 'Gửi email đặt lại' : 'Đăng nhập';
+  document.getElementById('auth-signup').hidden = reset || forgot;
+  document.getElementById('auth-forgot').textContent = forgot ? '← Quay lại đăng nhập' : 'Quên mật khẩu?';
+  document.getElementById('auth-forgot').hidden = reset;
+}
+function openAuth(sub, mode){
+  if (!sb){ alertMsg('Website chưa được kết nối máy chủ.'); return; }
+  setAuthMode(mode || 'login');
+  document.getElementById('auth-sub').textContent = sub || 'Đăng nhập để lưu tiến độ trên mọi thiết bị và mở khóa các bài đã mua.';
+  aMsg.textContent = ''; aMsg.className = 'msg';
+  modal.classList.add('open');
+  setTimeout(() => (mode === 'reset' ? document.getElementById('auth-pass') : document.getElementById('auth-email')).focus(), 30);
+}
+function closeAuth(){ modal.classList.remove('open'); }
+function alertMsg(t){ app.insertAdjacentHTML('afterbegin', `<div class="banner warn">${esc(t)}</div>`); }
+const say = (t, ok) => { aMsg.textContent = t; aMsg.className = 'msg ' + (ok ? 'ok' : 'err'); };
+const VI_ERR = m => /Invalid login/i.test(m) ? 'Email hoặc mật khẩu không đúng.'
+  : /already registered/i.test(m) ? 'Email này đã có tài khoản. Hãy đăng nhập.'
+  : /Email not confirmed/i.test(m) ? 'Bạn chưa xác nhận email. Hãy mở email xác nhận rồi đăng nhập lại.'
+  : /Password should be/i.test(m) ? 'Mật khẩu quá ngắn hoặc quá đơn giản.'
+  : /rate limit/i.test(m) ? 'Bạn thao tác quá nhanh, hãy thử lại sau ít phút.' : m;
+
+document.addEventListener('click', e => { if (e.target.closest('[data-login]')){ e.preventDefault(); openAuth(); } });
+document.getElementById('auth-close').onclick = closeAuth;
+modal.addEventListener('click', e => { if (e.target === modal) closeAuth(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeAuth(); });
+document.getElementById('auth-forgot').onclick = () => setAuthMode(authMode === 'forgot' ? 'login' : 'forgot');
+document.getElementById('g-btn').onclick = async () => {
+  const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+  if (error) say(VI_ERR(error.message));
+};
+document.getElementById('auth-signup').onclick = async () => {
+  const email = document.getElementById('auth-email').value.trim(), password = document.getElementById('auth-pass').value;
+  if (!email || password.length < 8) return say('Nhập email và mật khẩu từ 8 ký tự.');
+  const { data, error } = await sb.auth.signUp({ email, password, options: { emailRedirectTo: location.origin + location.pathname } });
+  if (error) return say(VI_ERR(error.message));
+  if (!data.session) say('Đã tạo tài khoản. Hãy mở email để xác nhận, rồi quay lại đăng nhập.', true);
+};
+document.getElementById('auth-form').onsubmit = async e => {
+  e.preventDefault();
+  const email = document.getElementById('auth-email').value.trim(), password = document.getElementById('auth-pass').value;
+  if (authMode === 'forgot'){
+    if (!email) return say('Nhập email của bạn.');
+    const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+    return error ? say(VI_ERR(error.message)) : say('Đã gửi email đặt lại mật khẩu. Hãy kiểm tra hộp thư.', true);
+  }
+  if (authMode === 'reset'){
+    if (password.length < 8) return say('Mật khẩu cần tối thiểu 8 ký tự.');
+    const { error } = await sb.auth.updateUser({ password });
+    if (error) return say(VI_ERR(error.message));
+    say('Đã đổi mật khẩu.', true); setTimeout(closeAuth, 900); return;
+  }
+  if (!email || !password) return say('Nhập email và mật khẩu.');
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) return say(VI_ERR(error.message));
+  closeAuth();
+};
+
+function renderAcctBtn(){
+  const b = document.getElementById('acct-btn');
+  if (user){ b.textContent = 'Tài khoản'; b.classList.remove('primary'); b.onclick = () => { location.hash = '#account'; }; }
+  else { b.textContent = 'Đăng nhập'; b.classList.add('primary'); b.onclick = () => openAuth(); }
+}
+
+/* ---------- đồng bộ tiến độ ---------- */
+let syncBusy = false, syncDirty = false, syncTimer = null;
 function mergeProgress(remote){
   ['en','ja'].forEach(k => { const r = (remote||{})[k] || {};
     Object.keys(r).forEach(n => { const a = progress[k][n], b = r[n];
       if (!a) progress[k][n] = b;
       else progress[k][n] = {best: Math.max(a.best, b.best), last: (a.at||0) >= (b.at||0) ? a.last : b.last, tries: Math.max(a.tries||0, b.tries||0), at: Math.max(a.at||0, b.at||0)}; }); });
 }
-async function cloudSave(){
-  if (!cloudRef) return;
-  if (cloudBusy){ cloudDirty = true; return; }
-  cloudBusy = true;
-  try{ await cloudRef.set({p: JSON.stringify(progress), at: Date.now()}); syncEl.textContent = 'Đã đồng bộ tài khoản'; }
-  catch(e){ syncEl.textContent = 'Lưu trên trình duyệt'; }
-  cloudBusy = false;
-  if (cloudDirty){ cloudDirty = false; cloudSave(); }
+function cloudSave(){ clearTimeout(syncTimer); syncTimer = setTimeout(cloudPush, 600); }
+async function cloudPush(){
+  if (!sb || !user) return;
+  if (syncBusy){ syncDirty = true; return; }
+  syncBusy = true;
+  try{ await sb.from('progress').upsert({ user_id: user.id, data: progress, updated_at: new Date().toISOString() }); }catch(e){}
+  syncBusy = false;
+  if (syncDirty){ syncDirty = false; cloudPush(); }
 }
-async function initCloud(){
-  try{
-    if (!window.claude || !window.claude.use) return;
-    const [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
-    if (!db || !user) return;
-    const id = await user.id(); if (!id) return;
-    const ref = db.doc('data/users/' + id + '/progress');
-    const snap = await ref.get();
-    let data = snap && (typeof snap.data === 'function' ? snap.data() : (snap.data !== undefined ? snap.data : snap));
-    if (data && data.p){ mergeProgress(JSON.parse(data.p)); store.set('mv.progress', progress); }
-    cloudRef = ref; syncEl.textContent = 'Đã đồng bộ tài khoản';
-    await cloudSave();
-    if (!location.hash.startsWith('#quiz-')) route();
-  }catch(e){}
+async function cloudPull(){
+  if (!sb || !user) return;
+  const { data } = await sb.from('progress').select('data').eq('user_id', user.id).maybeSingle();
+  if (data && data.data){ mergeProgress(data.data); store.set('mv.progress', progress); }
+  cloudPush();
 }
 
-applyPrefs(); route(); initCloud();
+/* ---------- khởi động ---------- */
+async function onUser(u){
+  const changed = (u && u.id) !== (user && user.id);
+  user = u || null;
+  renderAcctBtn();
+  if (!changed) return;
+  Object.keys(cache).forEach(k => delete cache[k]);
+  quizState = null;
+  await refreshAccess();
+  if (user) await cloudPull();
+  if (!location.hash.startsWith('#quiz-')) route();
+}
+async function initAuth(){
+  renderAcctBtn();
+  if (!sb){ route(); return; }
+  sb.auth.onAuthStateChange((ev, s) => {
+    session = s;
+    if (ev === 'PASSWORD_RECOVERY') openAuth('Nhập mật khẩu mới cho tài khoản của bạn.', 'reset');
+    setTimeout(() => onUser(s && s.user), 0);
+  });
+  const { data } = await sb.auth.getSession();
+  session = data.session;
+  user = session && session.user || null;
+  renderAcctBtn();
+  await refreshAccess();
+  if (user) await cloudPull();
+  route();
+}
+applyPrefs(); initAuth();
 </script>
 </body>
 </html>

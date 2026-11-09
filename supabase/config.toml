@@ -1,0 +1,9 @@
+# Cấu hình Edge Functions (dùng khi triển khai bằng Supabase CLI)
+[functions.create-checkout]
+verify_jwt = true
+
+[functions.payos-webhook]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false
