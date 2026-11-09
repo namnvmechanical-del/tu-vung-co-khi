@@ -1,6 +1,6 @@
 # EngiWords – Từ vựng kỹ thuật Anh–Nhật
 
-EngiWords: website học thuật ngữ cơ khí bằng tiếng Anh và tiếng Nhật cho người Việt: 100 chủ đề, 2.987 thuật ngữ, 120 bài (25 từ/bài), quiz trắc nghiệm và điền từ. Có tài khoản đăng nhập (Google/Email) và bán gói học (QR ngân hàng VN qua payOS, thẻ quốc tế qua Stripe).
+EngiWords: website học thuật ngữ kỹ thuật bằng tiếng Anh và tiếng Nhật cho người Việt. 7 chuyên ngành (Cơ khí, CNTT, Tự động hóa, Hóa học, Vật liệu, Nhiệt lạnh, Điện tử), mỗi ngành 100 chủ đề, 120 bài, ~3.000 thuật ngữ. Mỗi bài: từ vựng, quiz từ vựng, bài đọc hiểu, điền từ vào đoạn văn, hỏi đáp tình huống. Có tài khoản đăng nhập (Google/Email) và bán gói học (QR ngân hàng VN qua payOS, thẻ quốc tế qua Stripe).
 
 ## Cấu trúc
 
@@ -10,7 +10,7 @@ EngiWords: website học thuật ngữ cơ khí bằng tiếng Anh và tiếng N
 | `supabase/migrations/` | Bảng, quyền truy cập (RLS), hàm `get_module`, `grant_order`, gói bán mẫu |
 | `supabase/functions/` | `create-checkout` (tạo thanh toán), `payos-webhook`, `stripe-webhook` (xác nhận và cấp quyền) |
 
-Dữ liệu 2.987 từ **không nằm trong repo**: nó được nạp thẳng vào bảng `words` (file seed SQL gửi riêng). Trình duyệt chỉ nhận dữ liệu qua hàm `get_module`, hàm này trả nội dung Phần 1 cho mọi người, các phần khác chỉ cho tài khoản đã mua.
+Dữ liệu từ vựng, bài đọc và hỏi đáp **không nằm trong repo**: nó được nạp thẳng vào bảng `words` (file seed SQL gửi riêng). Trình duyệt chỉ nhận dữ liệu qua hàm `get_module`, hàm này trả nội dung Phần 1 cho mọi người, các phần khác chỉ cho tài khoản đã mua.
 
 ## Thiết lập lần đầu
 
@@ -19,7 +19,7 @@ GitHub → repo → **Settings → General → Danger Zone → Change visibility
 
 ### 1. Supabase
 1. Tạo project tại supabase.com (vùng **Southeast Asia (Singapore)**).
-2. **SQL Editor**: chạy `supabase/migrations/20261109000001_schema.sql`, sau đó chạy lần lượt 10 file `words_m01.sql` … `words_m10.sql`.
+2. **SQL Editor**: chạy `supabase/migrations/20261109000001_schema.sql`, sau đó chạy các file seed `<ngành>_mNN.sql` (từ vựng) và `<ngành>_readings.sql` (bài đọc + hỏi đáp).
 3. **Authentication → Sign In / Providers**: bật **Email**. Bật **Google**: tạo OAuth Client (Web application) ở Google Cloud Console, thêm Authorized redirect URI `https://<project-ref>.supabase.co/auth/v1/callback`, rồi dán Client ID/Secret vào Supabase.
 4. **Authentication → URL Configuration**: *Site URL* = `https://<tên-miền>.com`; *Redirect URLs* thêm `https://<tên-miền>.com/**`.
 5. **Project Settings → API**: chép *Project URL* và *anon / publishable key* vào `public/config.js`.
@@ -59,4 +59,5 @@ supabase secrets set SITE_URL=https://<tên-miền>.com \
 ## Vận hành
 - **Cấp quyền thủ công** (tặng, xử lý sự cố): Table Editor → `entitlements` → thêm dòng `user_id`, `scope` (`all`/`en`/`ja`), `expires_at` (để trống = trọn đời).
 - **Xem doanh thu**: bảng `orders` (lọc `status = paid`).
+- **Gói bán**: `m_<ngành>` mở 1 ngành (cả Anh + Nhật, trọn đời); `month`/`year`/`life_all` mở mọi ngành; `life_en`/`life_ja` mở mọi ngành cho 1 ngôn ngữ.
 - **Đổi phần miễn phí**: sửa hàm `is_free_module` trong SQL và `freeModules` trong `public/config.js`.

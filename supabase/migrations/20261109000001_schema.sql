@@ -6,7 +6,7 @@ create table if not exists public.products (
   id          text primary key,
   name_vi     text not null,
   desc_vi     text not null default '',
-  scope       text not null check (scope in ('all','en','ja')),
+  scope       text not null check (scope in ('all','en','ja') or scope like 'm:%'),   -- m:<ngành> = một ngành, cả 2 ngôn ngữ
   days        int  check (days is null or days > 0),        -- null = trọn đời
   price_vnd   int  not null check (price_vnd >= 2000),
   price_jpy   int  not null check (price_jpy >= 100),
@@ -17,11 +17,20 @@ create table if not exists public.products (
 
 -- ========== Nội dung từ vựng (chỉ đọc qua hàm get_module) ==========
 create table if not exists public.words (
+  major     text not null default 'co-khi',   -- ngành: co-khi, cntt, tu-dong-hoa, hoa-hoc, vat-lieu, nhiet-lanh, dien-tu
   module_id int  not null,
   pos       int  not null,          -- thứ tự trong phần (0..), khớp manifest.lessons[].start
   topic_id  int  not null,
   data      jsonb not null,
-  primary key (module_id, pos)
+  primary key (major, module_id, pos)
+);
+
+-- ========== Bài đọc hiểu + Hỏi đáp (1 dòng / bài học; chỉ đọc qua hàm get_reading) ==========
+create table if not exists public.readings (
+  major  text not null,
+  lesson int  not null,          -- số bài 1..120 trong ngành; phần = ceil(lesson/12)
+  data   jsonb not null,
+  primary key (major, lesson)
 );
 
 -- ========== Đơn hàng ==========
@@ -44,7 +53,7 @@ create index if not exists orders_user_idx on public.orders(user_id, created_at 
 create table if not exists public.entitlements (
   id         bigint generated always as identity primary key,
   user_id    uuid not null references auth.users(id) on delete cascade,
-  scope      text not null check (scope in ('all','en','ja')),
+  scope      text not null check (scope in ('all','en','ja') or scope like 'm:%'),
   expires_at timestamptz,                                   -- null = trọn đời
   order_id   uuid unique references public.orders(id),
   note       text,
@@ -62,6 +71,7 @@ create table if not exists public.progress (
 -- ========== RLS ==========
 alter table public.products     enable row level security;
 alter table public.words        enable row level security;   -- không có policy: không ai đọc trực tiếp
+alter table public.readings     enable row level security;   -- như trên
 alter table public.orders       enable row level security;
 alter table public.entitlements enable row level security;
 alter table public.progress     enable row level security;
@@ -87,18 +97,21 @@ create policy progress_upd on public.progress for update to authenticated using 
 create or replace function public.is_free_module(p_module int) returns boolean
 language sql immutable as $$ select p_module in (1) $$;
 
-create or replace function public.has_access(p_track text) returns boolean
+drop function if exists public.has_access(text);
+create or replace function public.has_access(p_track text, p_major text) returns boolean
 language sql stable security definer set search_path = public as $$
   select exists (
     select 1 from public.entitlements e
     where e.user_id = auth.uid()
-      and e.scope in ('all', p_track)
+      and (e.scope in ('all', p_track) or e.scope = 'm:' || p_major)
       and (e.expires_at is null or e.expires_at > now())
   )
 $$;
 
--- Trả dữ liệu 1 phần cho 1 ngôn ngữ, chỉ khi miễn phí hoặc đã mua.
-create or replace function public.get_module(p_module int, p_track text) returns jsonb
+drop function if exists public.get_module(int, text);
+
+-- Trả dữ liệu 1 phần của 1 ngành cho 1 ngôn ngữ, chỉ khi miễn phí hoặc đã mua.
+create or replace function public.get_module(p_major text, p_module int, p_track text) returns jsonb
 language plpgsql stable security definer set search_path = public as $$
 declare
   keep text[];
@@ -107,7 +120,7 @@ begin
   if p_track not in ('en','ja') then
     raise exception 'invalid track';
   end if;
-  if not public.is_free_module(p_module) and not public.has_access(p_track) then
+  if not public.is_free_module(p_module) and not public.has_access(p_track, p_major) then
     raise exception 'LOCKED' using errcode = '42501';
   end if;
   keep := case p_track
@@ -121,10 +134,30 @@ begin
            jsonb_build_object('id', w.topic_id,
              'words', jsonb_agg((select jsonb_object_agg(k, w.data -> k) from unnest(keep) k where w.data ? k) order by w.pos)) as t
     from public.words w
-    where w.module_id = p_module
+    where w.major = p_major and w.module_id = p_module
     group by w.topic_id
   ) s;
   return result;
+end $$;
+
+-- Trả bài đọc hiểu của 1 bài học (chỉ phần ngôn ngữ đang học + bản dịch tiếng Việt).
+create or replace function public.get_reading(p_major text, p_lesson int, p_track text) returns jsonb
+language plpgsql stable security definer set search_path = public as $$
+declare d jsonb;
+begin
+  if p_track not in ('en','ja') then raise exception 'invalid track'; end if;
+  if not public.is_free_module((p_lesson - 1) / 12 + 1) and not public.has_access(p_track, p_major) then
+    raise exception 'LOCKED' using errcode = '42501';
+  end if;
+  select data into d from public.readings where major = p_major and lesson = p_lesson;
+  if d is null then return null; end if;
+  return jsonb_build_object(
+    'lesson', p_lesson,
+    'title', d -> ('title_' || p_track), 'title_vi', d -> 'title_vi',
+    'text',  d -> ('text_'  || p_track), 'text_vi',  d -> 'text_vi',
+    'used',  d -> 'used',
+    'questions', d -> ('q_' || p_track),
+    'qa', d -> ('qa_' || p_track));
 end $$;
 
 -- Ghi nhận thanh toán + cấp quyền. Chỉ service_role (Edge Functions) được gọi. Gọi lặp lại vẫn an toàn.
@@ -164,18 +197,26 @@ end $$;
 grant select on public.products to anon, authenticated;
 grant select on public.orders, public.entitlements to authenticated;
 grant select, insert, update on public.progress to authenticated;
-grant all on public.products, public.words, public.orders, public.entitlements, public.progress to service_role;
+grant all on public.products, public.words, public.readings, public.orders, public.entitlements, public.progress to service_role;
 
 revoke all on function public.grant_order(bigint, text, int) from public, anon, authenticated;
 grant execute on function public.grant_order(bigint, text, int) to service_role;
-grant execute on function public.get_module(int, text) to anon, authenticated;
-grant execute on function public.has_access(text) to anon, authenticated;
+grant execute on function public.get_module(text, int, text) to anon, authenticated;
+grant execute on function public.get_reading(text, int, text) to anon, authenticated;
+grant execute on function public.has_access(text, text) to anon, authenticated;
 
 -- ========== Gói bán mẫu (sửa giá trong Table Editor > products) ==========
 insert into public.products (id, name_vi, desc_vi, scope, days, price_vnd, price_jpy, sort, highlight) values
-  ('month',    'Gói 1 tháng',          'Mở toàn bộ 120 bài tiếng Anh và tiếng Nhật trong 30 ngày',  'all', 30,   99000,  600, 1, false),
-  ('year',     'Gói 1 năm',            'Mở toàn bộ 120 bài tiếng Anh và tiếng Nhật trong 365 ngày', 'all', 365, 690000, 4200, 2, true),
-  ('life_all', 'Trọn đời Anh + Nhật',  'Mua một lần, học mãi cả hai ngôn ngữ',                        'all', null, 1290000, 7800, 3, false),
-  ('life_en',  'Trọn đời tiếng Anh',   'Mua một lần, học mãi lộ trình tiếng Anh',                     'en',  null, 790000, 4800, 4, false),
-  ('life_ja',  'Trọn đời tiếng Nhật',  'Mua một lần, học mãi lộ trình tiếng Nhật',                    'ja',  null, 790000, 4800, 5, false)
+  ('month',    'Gói 1 tháng',          'Mở toàn bộ các ngành, cả tiếng Anh và tiếng Nhật, trong 30 ngày',  'all', 30,   99000,  600, 1, false),
+  ('year',     'Gói 1 năm',            'Mở toàn bộ các ngành, cả tiếng Anh và tiếng Nhật, trong 365 ngày', 'all', 365, 690000, 4200, 2, true),
+  ('life_all', 'Trọn đời Anh + Nhật',  'Mua một lần, học mãi mọi ngành bằng cả hai ngôn ngữ',                        'all', null, 1290000, 7800, 3, false),
+  ('life_en',  'Trọn đời tiếng Anh',   'Mua một lần, học mãi mọi ngành bằng tiếng Anh',                     'en',  null, 790000, 4800, 4, false),
+  ('life_ja',  'Trọn đời tiếng Nhật',  'Mua một lần, học mãi mọi ngành bằng tiếng Nhật',                    'ja',  null, 790000, 4800, 5, false),
+  ('m_co-khi',      'Ngành Cơ khí',              'Trọn đời ngành Cơ khí, cả tiếng Anh và tiếng Nhật',              'm:co-khi',      null, 390000, 2400, 11, false),
+  ('m_cntt',        'Ngành Công nghệ thông tin', 'Trọn đời ngành Công nghệ thông tin, cả tiếng Anh và tiếng Nhật', 'm:cntt',        null, 390000, 2400, 12, false),
+  ('m_tu-dong-hoa', 'Ngành Tự động hóa',         'Trọn đời ngành Tự động hóa, cả tiếng Anh và tiếng Nhật',         'm:tu-dong-hoa', null, 390000, 2400, 13, false),
+  ('m_hoa-hoc',     'Ngành Hóa học',             'Trọn đời ngành Hóa học, cả tiếng Anh và tiếng Nhật',             'm:hoa-hoc',     null, 390000, 2400, 14, false),
+  ('m_vat-lieu',    'Ngành Vật liệu',            'Trọn đời ngành Vật liệu, cả tiếng Anh và tiếng Nhật',            'm:vat-lieu',    null, 390000, 2400, 15, false),
+  ('m_nhiet-lanh',  'Ngành Nhiệt lạnh',          'Trọn đời ngành Nhiệt lạnh, cả tiếng Anh và tiếng Nhật',          'm:nhiet-lanh',  null, 390000, 2400, 16, false),
+  ('m_dien-tu',     'Ngành Điện tử',             'Trọn đời ngành Điện tử, cả tiếng Anh và tiếng Nhật',             'm:dien-tu',     null, 390000, 2400, 17, false)
 on conflict (id) do nothing;
