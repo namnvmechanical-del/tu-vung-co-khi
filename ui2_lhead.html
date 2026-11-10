@@ -1,0 +1,12 @@
+<header class="lhead2">
+    <div class="lh-art">${cover('h' + MAJOR + n, lessonIcons(n), hueOf(MAJOR), true, true)}</div>
+    <div class="lh-body">
+      <div class="lno">Bài ${n} / ${LESSONS.length} · Phần ${m.id}: ${esc(m.vi)}</div>
+      <h1>${esc(topicLabel(l))}</h1>
+      <div class="lchips">
+        <span class="chip">${words.length} từ · ${isJA()?'tiếng Nhật':'tiếng Anh'}</span>
+        <span class="chip lv1">${lv[0]} cơ bản</span><span class="chip lv2">${lv[1]} trung cấp</span><span class="chip lv3">${lv[2]} nâng cao</span>
+        <span class="chip lstat">${esc(s.label)}</span>
+      </div>
+    </div>
+  </header>
