@@ -280,6 +280,97 @@ main{max-width:1120px;margin:0 auto;padding:20px 16px 64px}
   .mod-pct{grid-column:1/-1;text-align:left}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ===== UI v2 ===== */
+:root{--r:14px;--shadow:0 1px 2px rgba(19,32,46,.05),0 4px 14px rgba(19,32,46,.05);--accent-ink:#fff}
+body{background-image:none}
+:root[data-theme="dark"] .card,:root:not([data-theme="light"]) .card{box-shadow:none}
+.card{box-shadow:var(--shadow)}
+main{padding-top:24px}
+h1,h2,h3{letter-spacing:-.01em}
+/* thanh trên */
+.bar{box-shadow:0 1px 0 var(--line)}
+.bar-in{flex-wrap:nowrap;padding:10px 16px}
+.brand small{letter-spacing:.04em;text-transform:none;font-size:.78em}
+.nav a{padding:7px 12px;border-radius:999px}
+.nav a.on{background:var(--accent-soft);color:var(--accent)}
+.seg{background:var(--bg)}
+/* đầu bài */
+.lhead{margin:4px 0 14px}
+.lno{font-family:var(--f-mono);font-size:.78em;color:var(--muted);margin-bottom:4px}
+.lhead h1{font-size:clamp(1.35em,3vw,1.9em);line-height:1.25}
+.lsub{margin:4px 0 0}
+.lchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.lchips .chip{font-size:.8em;padding:2px 10px;background:var(--surface)}
+.lchips .lstat{margin-left:auto;color:var(--ink)}
+.crumbs{margin-bottom:6px;font-size:.9em}
+.crumbs a{text-decoration:none;color:var(--muted)} .crumbs a:hover{color:var(--accent)}
+/* các bước trong bài */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:6px 0 20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.step{display:flex;align-items:center;gap:9px;padding:11px 12px;text-decoration:none;color:var(--muted);border-right:1px solid var(--line);min-width:0;position:relative}
+.step:last-child{border-right:0}
+.step .dot{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:.8em;font-weight:700;border:1.5px solid var(--line);background:var(--bg);color:var(--muted)}
+.step .lbl{font-weight:600;font-size:.9em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step small{display:block;font-family:var(--f-mono);font-size:.72em;margin-left:auto}
+.step.done .dot{background:var(--good);border-color:var(--good);color:#fff} .step.done small{color:var(--good)}
+.step.tried .dot{border-color:var(--signal);color:var(--signal)} .step.tried small{color:var(--signal)}
+.step.on{background:var(--accent-soft);color:var(--ink)}
+.step.on .dot{background:var(--accent);border-color:var(--accent);color:#fff}
+.step.off{opacity:.5}
+.step:not(.off):hover{background:var(--accent-soft)}
+/* thanh công cụ + hàng từ */
+.toolbar{margin:0 0 14px}
+.btn{border-radius:10px;padding:10px 18px;transition:background .15s,border-color .15s}
+.btn:hover:not(:disabled){border-color:var(--accent)}
+.btn.primary:hover:not(:disabled){filter:brightness(1.08)}
+/* bảng giá */
+.sect{font-size:1.2em;margin:26px 0 4px}
+.plans-all{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.plan{padding:20px 18px}
+.plan ul{display:none}
+.plan .alt{margin-top:-4px}
+.plan .price small{display:block;margin-top:2px}
+.plan .pay{gap:8px}
+.prows{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:10px;margin-top:12px}
+.prow{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.prow.cur{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.pr-ic{font-size:1.5em;flex:none}
+.pr-main{flex:1;min-width:0} .pr-main b{font-size:1em} .pr-main small{display:block;color:var(--muted);font-size:.8em}
+.pr-pay{display:flex;gap:6px;flex:none}
+.pr-pay .btn{padding:7px 10px;font-size:.82em;white-space:nowrap}
+/* điện thoại: thanh trên gọn + thanh điều hướng dưới */
+@media (max-width:760px){
+  .bar{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--surface)}
+  .w-head{grid-template-columns:26px 1fr;row-gap:6px}
+  .w-side{grid-column:2;flex-wrap:wrap}
+  .w-read{display:block;margin:2px 0 0}
+  .bar-in{gap:8px;padding:8px 12px}
+  .brand-mark{width:32px;height:32px}
+  .brand small{display:none}
+  .brand b{font-size:1em}
+  .seg button,#acct-btn{white-space:nowrap}
+  .seg button{padding:5px 10px;font-size:.82em}
+  .seg #tr-ja .jp{display:none}
+  #acct-btn{padding:6px 10px!important;font-size:.85em}
+  #theme{display:none}
+  .nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--surface);border-top:1px solid var(--line);padding:4px 4px calc(4px + env(safe-area-inset-bottom))}
+  .nav a{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px;border-radius:10px;font-size:.72em;font-weight:600}
+  .nav a::before{font-size:1.55em;line-height:1.1}
+  .nav a[data-nav="roadmap"]::before{content:"🗺️"} .nav a[data-nav="majors"]::before{content:"🎓"}
+  .nav a[data-nav="topics"]::before{content:"🗂️"} .nav a[data-nav="pricing"]::before{content:"💳"}
+  main{padding:14px 12px 96px}
+  .foot{padding-bottom:84px}
+  .steps{grid-template-columns:repeat(5,1fr)}
+  .step{flex-direction:column;gap:3px;padding:9px 2px 8px;text-align:center}
+  .step .lbl{font-size:.68em;white-space:normal;line-height:1.15}
+  .step small{margin:0;font-size:.62em;min-height:1em}
+  .step .dot{width:24px;height:24px}
+  .prows{grid-template-columns:1fr}
+  .plans-all{grid-template-columns:1fr}
+  .lchips .lstat{margin-left:0}
+}
+
+@media (max-width:520px){.brand b{display:none}}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
@@ -531,15 +622,15 @@ async function viewLesson(n, mode){
   const lv = [1,2,3].map(k => words.filter(w => w.level===k).length);
   mode = mode || 'list';
   let h = `<div class="crumbs"><a href="#roadmap">← Lộ trình ${esc(MAN.vi)}</a></div>
-  <div class="tblock">
-    <div class="main"><h1>Bài ${n}: ${esc(topicLabel(l))}</h1><div class="muted" style="margin-top:4px">${esc(MAN.vi)} · Phần ${m.id}: ${esc(m.vi)} · học ${isJA()?'tiếng Nhật':'tiếng Anh'}</div></div>
-    <div class="meta">
-      <div>Bài số</div><div class="mono">${String(n).padStart(3,'0')} / ${LESSONS.length}</div>
-      <div>Số từ</div><div class="mono">${words.length}</div>
-      <div>Cấp độ</div><div class="mono">${lv[0]} / ${lv[1]} / ${lv[2]}</div>
-      <div>Trạng thái</div><div>${esc(s.label)}</div>
+  <header class="lhead">
+    <div class="lno">Bài ${n} / ${LESSONS.length} · Phần ${m.id}: ${esc(m.vi)}</div>
+    <h1>${esc(topicLabel(l))}</h1>
+    <div class="lchips">
+      <span class="chip">${words.length} từ · ${isJA()?'tiếng Nhật':'tiếng Anh'}</span>
+      <span class="chip lv1">${lv[0]} cơ bản</span><span class="chip lv2">${lv[1]} trung cấp</span><span class="chip lv3">${lv[2]} nâng cao</span>
+      <span class="chip lstat">${esc(s.label)}</span>
     </div>
-  </div>
+  </header>
   ${lessonNav(n, 'words')}
   <div class="toolbar">
     <div class="seg" role="group" aria-label="Chế độ học">
@@ -865,21 +956,27 @@ function saveScore(kind, n, score){
 }
 function lessonNav(n, active){
   const ps = partStatus(n);
-  const tab = (href, label, key, on, ok) => ok ? `<a class="ptab ${on?'on':''}" href="${href}">${label}${key ? `<small>${key}</small>` : ''}</a>` : `<span class="ptab off" title="Đang soạn">${label}<small>sắp có</small></span>`;
   const qz = PT(prefs.track)[n];
-  return `<nav class="ptabs" aria-label="Phần của bài ${n}">
-    ${tab('#lesson-' + n, '1. Từ vựng', '', active === 'words', true)}
-    ${tab('#quiz-' + n, '2. Quiz từ vựng', qz ? qz.best + '%' : '—', active === 'quiz', true)}
-    ${tab('#reading-' + n, '3. Đọc hiểu', ps.r, active === 'reading', hasReading(n))}
-    ${tab('#cloze-' + n, '4. Điền từ vào đoạn văn', ps.c, active === 'cloze', hasReading(n))}
-    ${tab('#qa-' + n, '5. Hỏi đáp', ps.q, active === 'qa', hasQA(n))}
+  const stat = v => { const m = /(\d+)/.exec(String(v||'')); return !m ? '' : (+m[1] >= 70 ? 'done' : 'tried'); };
+  const step = (i, href, label, val, on, ok) => {
+    const st = ok ? stat(val) : 'off';
+    const sub = !ok ? 'sắp có' : (/\d/.test(String(val||'')) ? val : '');
+    const inner = `<span class="dot">${st === 'done' ? '✓' : i}</span><span class="lbl">${label}</span><small>${sub}</small>`;
+    return ok ? `<a class="step ${st} ${on?'on':''}" href="${href}"${on?' aria-current="step"':''}>${inner}</a>` : `<span class="step off" title="Đang soạn">${inner}</span>`;
+  };
+  return `<nav class="steps" aria-label="Các phần của bài ${n}">
+    ${step(1, '#lesson-' + n, 'Từ vựng', '', active === 'words', true)}
+    ${step(2, '#quiz-' + n, 'Quiz', qz ? qz.best + '%' : '', active === 'quiz', true)}
+    ${step(3, '#reading-' + n, 'Đọc hiểu', ps.r, active === 'reading', hasReading(n))}
+    ${step(4, '#cloze-' + n, 'Điền từ', ps.c, active === 'cloze', hasReading(n))}
+    ${step(5, '#qa-' + n, 'Hỏi đáp', ps.q, active === 'qa', hasQA(n))}
   </nav>`;
 }
+
 function lessonHead(n, sub, active){
   const l = lessonByN(n);
   return `<div class="crumbs"><a href="#roadmap">← Lộ trình ${esc(MAN.vi)}</a></div>
-    <h1 style="font-size:1.4em;margin-bottom:4px">Bài ${n}: ${esc(topicLabel(l))}</h1>
-    <div class="muted" style="margin-bottom:12px">${sub}</div>${lessonNav(n, active || '')}`;
+    <header class="lhead"><div class="lno">Bài ${n} / ${LESSONS.length} · ${esc(MAN.vi)}</div><h1>${esc(topicLabel(l))}</h1><p class="muted lsub">${sub}</p></header>${lessonNav(n, active || '')}`;
 }
 async function viewReading(n){
   setNav('roadmap');
@@ -1058,8 +1155,8 @@ async function viewPricing(){
   ${(() => { const per = ps.filter(p => p.scope.startsWith('m:')).sort((a,b) => (b.scope === 'm:' + MAJOR) - (a.scope === 'm:' + MAJOR));
      const allp = ps.filter(p => !p.scope.startsWith('m:'));
      const card = p => planCard(p, has);
-     return `<h2 class="sect">Mua theo ngành <span class="muted" style="font-size:.7em;font-weight:400">· trọn đời, cả tiếng Anh và tiếng Nhật</span></h2><div class="plans">${per.map(card).join('')}</div>
-             <h2 class="sect">Gói tất cả các ngành</h2><div class="plans">${allp.map(card).join('')}</div>`; })()}
+     return `<h2 class="sect">Mở tất cả các ngành</h2><div class="plans plans-all">${allp.map(card).join('')}</div>
+             <h2 class="sect">Hoặc mua riêng từng ngành <span class="muted" style="font-size:.7em;font-weight:400">· trọn đời, cả tiếng Anh và tiếng Nhật</span></h2><div class="prows">${per.map(p => planRow(p, has)).join('')}</div>`; })()}
   <div hidden>${ps.map(p => `
     <div class="card plan ${p.highlight?'hl':''}">
       ${p.highlight ? '<span class="tag">Tiết kiệm nhất</span>' : ''}
@@ -1077,6 +1174,15 @@ async function viewPricing(){
   <div class="msg err" id="buy-msg" role="status"></div>`;
   app.querySelectorAll('[data-buy]').forEach(b => b.onclick = () => buy(b.dataset.buy, b.dataset.prov, b));
 }
+function planRow(p, has){
+  const cur = p.scope === 'm:' + MAJOR;
+  const mj = MANIFEST.majors.find(M => M.slug === p.scope.slice(2)) || {};
+  return `<div class="card prow ${cur ? 'cur' : ''}">
+    <span class="pr-ic" aria-hidden="true">${mj.icon || ''}</span>
+    <div class="pr-main"><b>${esc(mj.vi || p.name_vi)}</b>${cur ? ' <span class="chip lv2">đang học</span>' : ''}<small>Trọn đời · Anh + Nhật</small></div>
+    ${has(p.scope) ? '<span class="chip lv1">Đã sở hữu</span>' : `<div class="pr-pay"><button class="btn primary" data-buy="${esc(p.id)}" data-prov="payos">${fmtVND(p.price_vnd)}</button><button class="btn" data-buy="${esc(p.id)}" data-prov="stripe">${fmtJPY(p.price_jpy)}</button></div>`}
+  </div>`;
+}
 function planCard(p, has){
   const cur = p.scope === 'm:' + MAJOR;
   return `<div class="card plan ${p.highlight || cur ? 'hl' : ''}">
@@ -1087,8 +1193,8 @@ function planCard(p, has){
       <ul><li>${esc(SCOPE[p.scope])}</li><li>${p.days ? `Thời hạn ${p.days} ngày, không tự gia hạn` : 'Dùng trọn đời'}</li><li>${esc(p.desc_vi)}</li></ul>
       ${has(p.scope) && !p.days ? '<span class="chip lv1">Bạn đã sở hữu gói này</span>' : ''}
       <div class="pay">
-        <button class="btn primary" data-buy="${esc(p.id)}" data-prov="payos">QR ngân hàng VN · ${fmtVND(p.price_vnd)}</button>
-        <button class="btn" data-buy="${esc(p.id)}" data-prov="stripe">Thẻ quốc tế · ${fmtJPY(p.price_jpy)}</button>
+        <button class="btn primary" data-buy="${esc(p.id)}" data-prov="payos">Trả bằng QR ngân hàng</button>
+        <button class="btn" data-buy="${esc(p.id)}" data-prov="stripe">Trả bằng thẻ quốc tế</button>
       </div>
     </div>`;
 }
