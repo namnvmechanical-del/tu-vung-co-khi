@@ -4,7 +4,16 @@ const HUES = {'co-khi':212,'cntt':238,'tu-dong-hoa':178,'hoa-hoc':318,'vat-lieu'
 const hueOf = slug => HUES[slug] != null ? HUES[slug] : 214;
 function hash32(s){ let h = 2166136261; s = String(s); for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
 function icoG(n, x, y, sc, op){ const d = ART.icons[n]; return d ? `<g transform="translate(${x} ${y}) scale(${sc})" opacity="${op}"><path d="${d}" style="fill:var(--ic)"/></g>` : ''; }
-function cover(key, icons, hue, deep, wide){
+const IMGB = ((window.MV_CONFIG && window.MV_CONFIG.imgBase) || 'img/').replace(/\/?$/, '/');
+const PHOTOS = !(window.MV_CONFIG && window.MV_CONFIG.photos === false);
+const phT = (slug, id) => IMGB + slug + '/t' + id + '.jpg';
+const phB = slug => IMGB + slug + '/banner.jpg';
+const phL = l => { const t = (l && l.topics) || []; return t.length ? phT(MAJOR, t[((l.n || 1) - 1) % t.length]) : null; };
+function cover(key, icons, hue, deep, wide, photo){
+  const svg = coverSvg(key, icons, hue, deep, wide);
+  return (PHOTOS && photo) ? svg + `<img class="ph" src="${photo}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : svg;
+}
+function coverSvg(key, icons, hue, deep, wide){
   const W = wide ? 960 : 320, r = hash32(key), shift = (r % 13) - 6, pat = (r >> 4) % 4, flip = wide ? 0 : (r >> 8) & 1;
   const h1 = (hue + shift + 360) % 360, h2 = (h1 + 10 + 360) % 360, id = 'cg' + r.toString(36) + (wide ? 'w' : '');
   const o1 = ((r % 5) - 2) + 5, o2 = -5 - ((r >> 3) % 3), dp = deep ? ' + var(--cdeep)' : '';
@@ -37,7 +46,7 @@ function viewRoadmap(){
   const ja = isJA(), langName = ja ? 'tiếng Nhật' : 'tiếng Anh', nTopics = MAN.modules.reduce((s,m) => s + m.topics.length, 0);
   let h = `${majorBar()}
   <section class="banner">
-    <div class="bn-art">${cover('major:' + MAJOR, [ART.art[MAJOR].d].concat(lessonIcons(1).slice(0,1)), hue, true, true)}</div>
+    <div class="bn-art">${cover('major:' + MAJOR, [ART.art[MAJOR].d].concat(lessonIcons(1).slice(0,1)), hue, true, true, phB(MAJOR))}</div>
     <div class="bn-body">
       <span class="eyebrow">${esc(MAN.icon || '')} ${esc(MAN.en)} · <span class="jp">${esc(MAN.ja)}</span></span>
       <h1>${esc(MAN.vi)}<br><em>học bằng ${langName}</em></h1>
@@ -67,7 +76,7 @@ function viewRoadmap(){
         const s = lessonStatus(l.n), lk = !unlocked(l.m), p = tr[l.n];
         const lab = lk ? 'Cần mở khóa' : (l.n === nx && !s.cls ? '▶ Học tiếp' : s.label);
         return `<a class="lcard ${lk ? 'locked' : s.cls} ${l.n === nx ? 'next' : ''}" href="${lk ? '#pricing' : '#lesson-' + l.n}">
-          <div class="lc-cover">${cover('l' + MAJOR + l.n, lessonIcons(l.n), hue)}<span class="lc-no">${l.n}</span>${lk ? '<span class="lc-flag">🔒</span>' : (s.cls === 'done' ? '<span class="lc-flag ok">✓</span>' : '')}${p ? `<span class="lc-bar"><i style="width:${Math.min(100,p.best)}%"></i></span>` : ''}</div>
+          <div class="lc-cover">${cover('l' + MAJOR + l.n, lessonIcons(l.n), hue, false, false, phL(l))}<span class="lc-no">${l.n}</span>${lk ? '<span class="lc-flag">🔒</span>' : (s.cls === 'done' ? '<span class="lc-flag ok">✓</span>' : '')}${p ? `<span class="lc-bar"><i style="width:${Math.min(100,p.best)}%"></i></span>` : ''}</div>
           <div class="lc-body"><div class="lc-title">${esc(topicLabel(l))}</div><div class="lc-meta"><span>${l.count} từ</span><span class="lc-st">${lab}</span></div></div></a>`; }).join('')}
       </div></section>`;
   });
@@ -81,7 +90,7 @@ function viewTopics(){
   MAN.modules.forEach(m => {
     h += `<section class="mod"><div class="mod-h"><span class="mod-n">${m.id}</span><div class="mod-t"><h2>${esc(m.vi)}</h2><div class="sub">${esc(m.en)} · <span class="jp">${esc(m.ja)}</span></div></div></div>
       <div class="lgrid tg">${m.topics.map(t => `<a class="lcard tcard ${t.n ? '' : 'pending'}" href="#topic-${t.id}">
-        <div class="lc-cover">${cover('t' + MAJOR + t.id, topicIcons(t.id), hue)}<span class="lc-no">${t.id}</span></div>
+        <div class="lc-cover">${cover('t' + MAJOR + t.id, topicIcons(t.id), hue, false, false, phT(MAJOR, t.id))}<span class="lc-no">${t.id}</span></div>
         <div class="lc-body"><div class="lc-title">${esc(t.vi)}</div><div class="lc-sub">${esc(t.en)}</div><div class="lc-meta"><span class="jp">${esc(t.ja)}</span><span>${t.n ? t.n + ' từ' : 'đang soạn'}</span></div></div></a>`).join('')}</div></section>`;
   });
   app.innerHTML = h;
@@ -97,7 +106,7 @@ function viewMajors(){
     const r = majorReady(M), d = majorDone(M), hue = hueOf(M.slug), a = ART.art[M.slug];
     const ic = [a.d].concat((a.l['1'] || []).slice(0,1));
     return `<a class="mcard2" href="#nganh-${M.slug}">
-      <div class="mc-cover">${cover('major:' + M.slug, ic, hue, true)}</div>
+      <div class="mc-cover">${cover('major:' + M.slug, ic, hue, true, false, phB(M.slug))}</div>
       <div class="mc-body"><h2>${esc(M.vi)}</h2><div class="muted">${esc(M.en)} · <span class="jp">${esc(M.ja)}</span></div>
         <div class="bar2" style="margin-top:12px"><i style="width:${Math.round(d/120*100)}%"></i></div>
         <div class="mc-foot"><span>${d}/120 bài hoàn thành</span><span>${r < 120 ? (r ? r + '/120 sẵn sàng' : 'Đang soạn') : '120 bài · 3.000 từ'}</span></div></div></a>`; }).join('')}</div>`;
