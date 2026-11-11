@@ -108,3 +108,24 @@ h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:-.015em;lin
   .lhead2{min-height:150px;border-radius:18px}.lh-body{padding:18px 18px;max-width:100%}.lh-art::after{background:linear-gradient(180deg,rgba(6,12,26,.18),rgba(6,12,26,.62))}
   .lhead2.compact{min-height:104px}
 }
+
+/* ===== bảng màu (data-palette trên <html>) ===== */
+:root{--cs:6%;--cl:25%;--cdeep:-9%;--ic:#eceff3;--pt:#fff;
+  --accent:hsl(var(--h) 9% 27%);--accent-soft:hsl(var(--h) 9% 93%);--accent-ink:#fff}
+:root[data-palette="sang"]{--cs:8%;--cl:92%;--cdeep:0%;--ic:#3c4857;--pt:#3c4857;
+  --accent:hsl(var(--h) 14% 30%);--accent-soft:hsl(var(--h) 12% 93%)}
+:root[data-palette="xam-xanh"]{--cs:30%;--cl:27%;--cdeep:-8%;--ic:#e6e9ee;--pt:#fff;
+  --accent:hsl(var(--h) 38% 34%);--accent-soft:hsl(var(--h) 30% 93%)}
+.brand-mark{background:var(--accent)}
+.lc-no{background:rgba(255,255,255,.92)}
+:root[data-palette="sang"] .banner,:root[data-palette="sang"] .lhead2{color:var(--ink)}
+:root[data-palette="sang"] .bn-art::after,:root[data-palette="sang"] .lh-art::after{background:none}
+:root[data-palette="sang"] .lhead2 h1,:root[data-palette="sang"] .lhead2 .lno,:root[data-palette="sang"] .lhead2 .lsub,:root[data-palette="sang"] .lhead2 .muted{color:var(--ink)}
+:root[data-palette="sang"] .eyebrow{background:rgba(60,72,87,.1)}
+:root[data-palette="sang"] .btn.light{background:var(--ink);color:#fff;border-color:var(--ink)}
+:root[data-palette="sang"] .btn.ghost{background:transparent;color:var(--ink);border-color:rgba(60,72,87,.4)}
+:root[data-palette="sang"] .lhead2 .lchips .chip{background:rgba(255,255,255,.7);border-color:rgba(60,72,87,.25);color:var(--ink)}
+:root[data-palette="sang"] .lhead2 .lchips .lstat{background:var(--ink);color:#fff}
+:root[data-palette="sang"] .lc-cover,:root[data-palette="sang"] .mc-cover{border-bottom:1px solid var(--line)}
+:root[data-palette="sang"] .lc-no{background:#fff;border:1px solid var(--line)}
+@media (max-width:760px){:root[data-palette="sang"] .bn-art::after{background:rgba(255,255,255,.35)}}

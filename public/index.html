@@ -482,6 +482,27 @@ h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:-.015em;lin
   .lhead2.compact{min-height:104px}
 }
 
+/* ===== bảng màu (data-palette trên <html>) ===== */
+:root{--cs:6%;--cl:25%;--cdeep:-9%;--ic:#eceff3;--pt:#fff;
+  --accent:hsl(var(--h) 9% 27%);--accent-soft:hsl(var(--h) 9% 93%);--accent-ink:#fff}
+:root[data-palette="sang"]{--cs:8%;--cl:92%;--cdeep:0%;--ic:#3c4857;--pt:#3c4857;
+  --accent:hsl(var(--h) 14% 30%);--accent-soft:hsl(var(--h) 12% 93%)}
+:root[data-palette="xam-xanh"]{--cs:30%;--cl:27%;--cdeep:-8%;--ic:#e6e9ee;--pt:#fff;
+  --accent:hsl(var(--h) 38% 34%);--accent-soft:hsl(var(--h) 30% 93%)}
+.brand-mark{background:var(--accent)}
+.lc-no{background:rgba(255,255,255,.92)}
+:root[data-palette="sang"] .banner,:root[data-palette="sang"] .lhead2{color:var(--ink)}
+:root[data-palette="sang"] .bn-art::after,:root[data-palette="sang"] .lh-art::after{background:none}
+:root[data-palette="sang"] .lhead2 h1,:root[data-palette="sang"] .lhead2 .lno,:root[data-palette="sang"] .lhead2 .lsub,:root[data-palette="sang"] .lhead2 .muted{color:var(--ink)}
+:root[data-palette="sang"] .eyebrow{background:rgba(60,72,87,.1)}
+:root[data-palette="sang"] .btn.light{background:var(--ink);color:#fff;border-color:var(--ink)}
+:root[data-palette="sang"] .btn.ghost{background:transparent;color:var(--ink);border-color:rgba(60,72,87,.4)}
+:root[data-palette="sang"] .lhead2 .lchips .chip{background:rgba(255,255,255,.7);border-color:rgba(60,72,87,.25);color:var(--ink)}
+:root[data-palette="sang"] .lhead2 .lchips .lstat{background:var(--ink);color:#fff}
+:root[data-palette="sang"] .lc-cover,:root[data-palette="sang"] .mc-cover{border-bottom:1px solid var(--line)}
+:root[data-palette="sang"] .lc-no{background:#fff;border:1px solid var(--line)}
+@media (max-width:760px){:root[data-palette="sang"] .bn-art::after{background:rgba(255,255,255,.35)}}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
@@ -1531,22 +1552,22 @@ const ART = {"art":{"co-khi":{"t":{"1":["cog","arrow-expand-all"],"2":["ruler"],
 const HUES = {'co-khi':212,'cntt':238,'tu-dong-hoa':178,'hoa-hoc':318,'vat-lieu':22,'nhiet-lanh':196,'dien-tu':40};
 const hueOf = slug => HUES[slug] != null ? HUES[slug] : 214;
 function hash32(s){ let h = 2166136261; s = String(s); for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
-function icoG(n, x, y, sc, op){ const d = ART.icons[n]; return d ? `<g transform="translate(${x} ${y}) scale(${sc})" opacity="${op}"><path d="${d}" fill="#fff"/></g>` : ''; }
+function icoG(n, x, y, sc, op){ const d = ART.icons[n]; return d ? `<g transform="translate(${x} ${y}) scale(${sc})" opacity="${op}"><path d="${d}" style="fill:var(--ic)"/></g>` : ''; }
 function cover(key, icons, hue, deep, wide){
   const W = wide ? 960 : 320, r = hash32(key), shift = (r % 13) - 6, pat = (r >> 4) % 4, flip = wide ? 0 : (r >> 8) & 1;
   const h1 = (hue + shift + 360) % 360, h2 = (h1 + 10 + 360) % 360, id = 'cg' + r.toString(36) + (wide ? 'w' : '');
-  const a = deep ? [21,14] : [33,23];
+  const o1 = ((r % 5) - 2) + 5, o2 = -5 - ((r >> 3) % 3), dp = deep ? ' + var(--cdeep)' : '';
   let p = '';
   const cx = flip ? 20 : W - 20;
-  if (pat === 0) for (let i = 0; i < 4; i++) p += `<circle cx="${cx}" cy="${flip?160:20}" r="${46+i*36}" fill="none" stroke="#fff" stroke-opacity=".15" stroke-width="1.6"/>`;
-  else if (pat === 1) for (let i = 0; i < W / 44; i++) p += `<path d="M${-60+i*46} 190L${50+i*46} -10" stroke="#fff" stroke-opacity=".09" stroke-width="12"/>`;
-  else if (pat === 2) for (let i = 0; i < W / 28; i++) for (let j = 0; j < 7; j++) p += `<circle cx="${12+i*28}" cy="${12+j*28}" r="1.7" fill="#fff" fill-opacity=".2"/>`;
-  else { for (let i = 1; i < W / 32; i++) p += `<path d="M${i*32} 0V180" stroke="#fff" stroke-opacity=".08"/>`; for (let j = 1; j < 6; j++) p += `<path d="M0 ${j*32}H${W}" stroke="#fff" stroke-opacity=".08"/>`; p += `<circle cx="${W-80}" cy="90" r="78" fill="none" stroke="#fff" stroke-opacity=".16" stroke-dasharray="4 6"/>`; }
+  if (pat === 0) for (let i = 0; i < 4; i++) p += `<circle cx="${cx}" cy="${flip?160:20}" r="${46+i*36}" fill="none" style="stroke:var(--pt)" stroke-opacity=".15" stroke-width="1.6"/>`;
+  else if (pat === 1) for (let i = 0; i < W / 44; i++) p += `<path d="M${-60+i*46} 190L${50+i*46} -10" style="stroke:var(--pt)" stroke-opacity=".09" stroke-width="12"/>`;
+  else if (pat === 2) for (let i = 0; i < W / 28; i++) for (let j = 0; j < 7; j++) p += `<circle cx="${12+i*28}" cy="${12+j*28}" r="1.7" style="fill:var(--pt)" fill-opacity=".2"/>`;
+  else { for (let i = 1; i < W / 32; i++) p += `<path d="M${i*32} 0V180" style="stroke:var(--pt)" stroke-opacity=".08"/>`; for (let j = 1; j < 6; j++) p += `<path d="M0 ${j*32}H${W}" style="stroke:var(--pt)" stroke-opacity=".08"/>`; p += `<circle cx="${W-80}" cy="90" r="78" fill="none" style="stroke:var(--pt)" stroke-opacity=".16" stroke-dasharray="4 6"/>`; }
   const ic = icons && icons.length ? icons : [ART.art[MAJOR].d];
   const bx = flip ? 14 : W - 162;
-  return `<svg class="cv" viewBox="0 0 ${W} 180" preserveAspectRatio="${wide ? 'xMaxYMid' : 'xMidYMid'} slice" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h1} 30% ${a[0]}%)"/><stop offset="1" stop-color="hsl(${h2} 34% ${a[1]}%)"/></linearGradient></defs>
+  return `<svg class="cv" viewBox="0 0 ${W} 180" preserveAspectRatio="${wide ? 'xMaxYMid' : 'xMidYMid'} slice" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:hsl(var(--h) var(--cs) calc(var(--cl) + ${o1}%${dp}))"/><stop offset="1" style="stop-color:hsl(var(--h) var(--cs) calc(var(--cl) + ${o2}%${dp}))"/></linearGradient></defs>
     <rect width="${W}" height="180" fill="url(#${id})"/>${p}
-    <circle cx="${bx+74}" cy="92" r="70" fill="#fff" fill-opacity=".06"/>${icoG(ic[0], bx, 18, 6.2, .82)}${ic[1] ? icoG(ic[1], wide ? W - 290 : (flip ? 262 : 24), 112, 2.1, .45) : ''}</svg>`;
+    <circle cx="${bx+74}" cy="92" r="70" style="fill:var(--pt)" fill-opacity=".07"/>${icoG(ic[0], bx, 18, 6.2, .82)}${ic[1] ? icoG(ic[1], wide ? W - 290 : (flip ? 262 : 24), 112, 2.1, .45) : ''}</svg>`;
 }
 const topicIcons = id => (ART.art[MAJOR].t[String(id)] || []);
 const lessonIcons = n => (ART.art[MAJOR].l[String(n)] || []);
@@ -1630,6 +1651,8 @@ function viewMajors(){
         <div class="bar2" style="margin-top:12px"><i style="width:${Math.round(d/120*100)}%"></i></div>
         <div class="mc-foot"><span>${d}/120 bài hoàn thành</span><span>${r < 120 ? (r ? r + '/120 sẵn sàng' : 'Đang soạn') : '120 bài · 3.000 từ'}</span></div></div></a>`; }).join('')}</div>`;
 }
+
+try{ const pl = localStorage.getItem('ew.palette'); if (pl) document.documentElement.setAttribute('data-palette', pl); }catch(e){}
 
 </script>
 </body>
