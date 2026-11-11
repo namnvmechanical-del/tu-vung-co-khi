@@ -96,9 +96,9 @@ function viewRoadmap(){
    <aside class="rm-side">
     ${weekWidget()}
     <div class="side-card"><h3>Kho từ vựng của bạn</h3><div class="big">${words.toLocaleString('vi-VN')}</div><p class="muted">thuật ngữ đã học trong ngành ${esc(MAN.vi)}</p>
-      ${lastDone ? `<a class="btn primary wide" href="#lesson-${lastDone}">Ôn lại bài ${lastDone}</a>` : `<p class="muted">Hoàn thành bài đầu tiên để bắt đầu có từ vựng ôn tập.</p>`}</div>
+      ${(lastDone || Object.keys(tr).length) ? `<a class="btn primary wide" href="#review">⏱ Ôn tập nhanh 5 phút</a>` : `<p class="muted">Làm quiz bài đầu tiên để bắt đầu có từ vựng ôn tập.</p>`}</div>
     <div class="side-card"><h3>Cột mốc hoàn thành</h3><div class="bar2"><i style="width:${pct}%"></i></div><ul class="ms">${ms}</ul>
-      <p class="muted">Chứng nhận hoàn thành sẽ có khi đủ 120 bài (tính năng sắp ra mắt).</p></div>
+      <p class="muted">${done.length}/${LESSONS.length} bài đã hoàn thành.</p></div>
    </aside>
   </div>`;
   app.innerHTML = h;

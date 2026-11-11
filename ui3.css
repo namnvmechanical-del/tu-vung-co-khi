@@ -213,7 +213,7 @@ body:has(.quiz) main{max-width:760px;margin:0 auto;padding-bottom:200px}
 .fb.sheet.ok{background:var(--good-soft);color:#08603f;border-top:3px solid var(--good)}
 .fb.sheet.no{background:#fdecec;color:#8a1f1f;border-top:3px solid #d64545}
 .fb-h{font-weight:800;font-size:1.1rem}.fb-a{margin-top:4px}.fb-d{margin-top:6px;font-size:.9rem;opacity:.85}.fb-act{margin-top:14px}.fb-act .btn{min-width:180px}
-.q-actions{display:none}
+.q-card .q-actions{display:none}
 
 .rm-act .btn,.lr-go,.btn.wide,.fb-act .btn{text-decoration:none}
 @media (max-width:760px){.bar{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:var(--surface)!important}}
