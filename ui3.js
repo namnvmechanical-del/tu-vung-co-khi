@@ -1,13 +1,13 @@
 /* ===== UI v3: ảnh minh họa theo chủ đề / bài, bố cục mới ===== */
 const ART = /*ART*/null;
-const HUES = {'co-khi':214,'cntt':262,'tu-dong-hoa':172,'hoa-hoc':330,'vat-lieu':24,'nhiet-lanh':196,'dien-tu':30};
+const HUES = {'co-khi':212,'cntt':238,'tu-dong-hoa':178,'hoa-hoc':318,'vat-lieu':22,'nhiet-lanh':196,'dien-tu':40};
 const hueOf = slug => HUES[slug] != null ? HUES[slug] : 214;
 function hash32(s){ let h = 2166136261; s = String(s); for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
 function icoG(n, x, y, sc, op){ const d = ART.icons[n]; return d ? `<g transform="translate(${x} ${y}) scale(${sc})" opacity="${op}"><path d="${d}" fill="#fff"/></g>` : ''; }
 function cover(key, icons, hue, deep, wide){
-  const W = wide ? 960 : 320, r = hash32(key), shift = (r % 31) - 15, pat = (r >> 4) % 4, flip = wide ? 0 : (r >> 8) & 1;
-  const h1 = (hue + shift + 360) % 360, h2 = (h1 + ((h1 >= 20 && h1 <= 75) ? -16 : 26) + 360) % 360, id = 'cg' + r.toString(36) + (wide ? 'w' : '');
-  const a = deep ? [36,28] : [52,40];
+  const W = wide ? 960 : 320, r = hash32(key), shift = (r % 13) - 6, pat = (r >> 4) % 4, flip = wide ? 0 : (r >> 8) & 1;
+  const h1 = (hue + shift + 360) % 360, h2 = (h1 + 10 + 360) % 360, id = 'cg' + r.toString(36) + (wide ? 'w' : '');
+  const a = deep ? [21,14] : [33,23];
   let p = '';
   const cx = flip ? 20 : W - 20;
   if (pat === 0) for (let i = 0; i < 4; i++) p += `<circle cx="${cx}" cy="${flip?160:20}" r="${46+i*36}" fill="none" stroke="#fff" stroke-opacity=".15" stroke-width="1.6"/>`;
@@ -16,9 +16,9 @@ function cover(key, icons, hue, deep, wide){
   else { for (let i = 1; i < W / 32; i++) p += `<path d="M${i*32} 0V180" stroke="#fff" stroke-opacity=".08"/>`; for (let j = 1; j < 6; j++) p += `<path d="M0 ${j*32}H${W}" stroke="#fff" stroke-opacity=".08"/>`; p += `<circle cx="${W-80}" cy="90" r="78" fill="none" stroke="#fff" stroke-opacity=".16" stroke-dasharray="4 6"/>`; }
   const ic = icons && icons.length ? icons : [ART.art[MAJOR].d];
   const bx = flip ? 14 : W - 162;
-  return `<svg class="cv" viewBox="0 0 ${W} 180" preserveAspectRatio="${wide ? 'xMaxYMid' : 'xMidYMid'} slice" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h1} 74% ${a[0]}%)"/><stop offset="1" stop-color="hsl(${h2} 70% ${a[1]}%)"/></linearGradient></defs>
+  return `<svg class="cv" viewBox="0 0 ${W} 180" preserveAspectRatio="${wide ? 'xMaxYMid' : 'xMidYMid'} slice" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h1} 30% ${a[0]}%)"/><stop offset="1" stop-color="hsl(${h2} 34% ${a[1]}%)"/></linearGradient></defs>
     <rect width="${W}" height="180" fill="url(#${id})"/>${p}
-    <circle cx="${bx+74}" cy="92" r="70" fill="#fff" fill-opacity=".13"/>${icoG(ic[0], bx, 18, 6.2, .95)}${ic[1] ? icoG(ic[1], wide ? W - 290 : (flip ? 262 : 24), 112, 2.1, .55) : ''}</svg>`;
+    <circle cx="${bx+74}" cy="92" r="70" fill="#fff" fill-opacity=".06"/>${icoG(ic[0], bx, 18, 6.2, .82)}${ic[1] ? icoG(ic[1], wide ? W - 290 : (flip ? 262 : 24), 112, 2.1, .45) : ''}</svg>`;
 }
 const topicIcons = id => (ART.art[MAJOR].t[String(id)] || []);
 const lessonIcons = n => (ART.art[MAJOR].l[String(n)] || []);
