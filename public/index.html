@@ -7,7 +7,7 @@
 <meta name="description" content="EngiWords: học thuật ngữ cơ khí bằng tiếng Anh và tiếng Nhật cho người Việt. 100 chủ đề, gần 3.000 từ, quiz và lộ trình.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   /* Layout: blueprint-grid canvas; roadmap = modules as drawing sheets, lessons as numbered tiles */
@@ -516,6 +516,81 @@ h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:-.015em;lin
 @media (max-width:760px){.bn-art::after{background:rgba(8,12,20,.62)}.lh-art::after{background:linear-gradient(180deg,rgba(8,12,20,.35),rgba(8,12,20,.75))}
 :root[data-palette="sang"] .bn-art::after{background:rgba(255,255,255,.7)}:root[data-palette="sang"] .lh-art::after{background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.85))}}
 
+/* ===== Coursera / Busuu style (mặc định) ===== */
+:root[data-palette="coursera"]{--f-display:"Plus Jakarta Sans","Noto Sans JP",system-ui,sans-serif;--f-body:"Plus Jakarta Sans","Noto Sans JP",system-ui,sans-serif;
+ --cs:38%;--cl:30%;--cdeep:-6%;--ic:#eef3fb;--pt:#fff}
+@media (prefers-color-scheme: light){:root[data-palette="coursera"]:not([data-theme="dark"]){--bg:#F5F7FA;--surface:#fff;--ink:#1b2430;--muted:#5b6776;--line:#e1e6ee;--accent:#0056D2;--accent-soft:#E8F0FD;--accent-ink:#fff;--good:#00A86B;--good-soft:#E3F6EE;--signal:#FF9900}}
+:root[data-palette="coursera"][data-theme="light"]{--bg:#F5F7FA;--surface:#fff;--ink:#1b2430;--muted:#5b6776;--line:#e1e6ee;--accent:#0056D2;--accent-soft:#E8F0FD;--accent-ink:#fff;--good:#00A86B;--good-soft:#E3F6EE;--signal:#FF9900}
+:root[data-palette="coursera"]:not([data-theme="dark"]) .brand-mark{background:#0056D2}
+:root[data-palette="coursera"] body{line-height:1.6}
+:root[data-palette="coursera"] .step.on{border-color:var(--accent)}
+
+/* lộ trình 2 cột 70/30 */
+.rm2{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,3fr);gap:24px;align-items:start}
+.rm-head{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+.rm-art{position:relative;height:112px}.rm-art .cv{width:100%;height:100%;display:block}
+.rm-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,20,.05),rgba(8,12,20,.35));z-index:1}
+.rm-body{padding:18px 22px 22px}.rm-body h1{font-size:1.55rem;margin:4px 0 2px}.rm-body h1 em{font-style:normal;color:var(--accent)}
+.rm-body .eyebrow{font-size:.78rem;color:var(--muted);font-weight:600}
+.rm-prog{display:flex;align-items:center;gap:12px;margin:14px 0}.rm-prog .bar2{flex:1;height:8px;margin:0}.rm-prog b{font-size:.9rem;white-space:nowrap}
+.rm-act{display:flex;gap:10px;flex-wrap:wrap}
+.acc{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+.acc>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 18px}.acc>summary::-webkit-details-marker{display:none}
+.acc .mod-n{width:34px;height:34px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:700;flex:none}
+.acc .mod-t{flex:1;min-width:0}.acc .mod-t h2{font-size:1.02rem}.acc .sub{font-size:.82rem;color:var(--muted)}
+.acc .mod-p{width:130px;font-size:.8rem;color:var(--muted);text-align:right}.acc .mod-p .bar2{margin-top:5px}
+.chev{width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s;flex:none;margin:0 4px 4px}
+.acc[open] .chev{transform:rotate(-135deg);margin-bottom:-2px}
+.lrows{border-top:1px solid var(--line)}
+.lrow{display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:1px solid var(--line);color:inherit;text-decoration:none;transition:background .12s}
+.lrow:last-child{border-bottom:0}a.lrow:hover{background:var(--accent-soft)}
+.lr-th{position:relative;width:104px;aspect-ratio:16/9;border-radius:8px;overflow:hidden;flex:none;background:var(--accent-soft)}.lr-th .cv{width:100%;height:100%;display:block}
+.lr-b{flex:1;min-width:0}.lr-t{font-weight:600;font-size:.95rem;line-height:1.35}
+.lr-m{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.78rem;color:var(--muted);margin-top:4px}.lr-m .sc{color:var(--good);font-weight:600}
+.lr-go{background:var(--accent);color:#fff;font-weight:600;font-size:.8rem;padding:6px 12px;border-radius:8px;white-space:nowrap}
+.st{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;flex:none;color:var(--muted)}
+.st.ok{background:var(--good);border-color:var(--good);color:#fff;font-weight:700}.st.mid{border-color:var(--signal);color:var(--signal)}.st.lock{border:0;font-size:1rem}
+.lrow.locked .lr-th{filter:saturate(.4) brightness(.95)}.lrow.locked .lr-t{color:var(--muted)}.lrow.pending{opacity:.55}
+.lrow.next{background:linear-gradient(90deg,var(--accent-soft),transparent 70%)}
+.rm-side{position:sticky;top:76px;display:grid;gap:14px}
+.side-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.side-card h3{font-size:.95rem;margin-bottom:12px}.side-card p{margin:10px 0 0;font-size:.8rem}
+.wk{display:flex;justify-content:space-between}.wd{display:grid;justify-items:center;gap:4px}.wd small{font-size:.7rem;color:var(--muted)}
+.wd-c{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;color:#fff}
+.wd.on .wd-c{background:var(--good);border-color:var(--good)}.wd.today .wd-c{border-color:var(--accent)}.wd.today small{color:var(--accent);font-weight:700}
+.big{font-size:2.1rem;font-weight:800;line-height:1.1;color:var(--accent)}.btn.wide{display:block;text-align:center;margin-top:12px;text-decoration:none}
+.ms{list-style:none;display:flex;justify-content:space-between;padding:0;margin:12px 0 0;font-size:.75rem;color:var(--muted)}
+.ms li{display:grid;justify-items:center;gap:4px}.ms i{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:.65rem;color:#fff}
+.ms li.on{color:var(--ink)}.ms li.on i{background:var(--good);border-color:var(--good)}
+@media (max-width:960px){.rm2{grid-template-columns:1fr}.rm-side{position:static;grid-template-columns:1fr 1fr}.rm-side .side-card:first-child{grid-column:1/-1}}
+@media (max-width:620px){.rm-side{grid-template-columns:1fr}.lr-th{width:78px}.acc .mod-p{display:none}.rm-body{padding:16px}}
+
+/* không gian học: chia đôi màn hình (mục lục trái 25% | nội dung phải 75%) */
+@media (min-width:961px){
+ #app:has(.steps):not(:has(.quiz)){display:grid;grid-template-columns:minmax(200px,1fr) minmax(0,3fr);column-gap:24px;align-items:start}
+ #app:has(.steps):not(:has(.quiz))>*{grid-column:2}
+ #app:has(.steps):not(:has(.quiz))>.crumbs,#app:has(.steps):not(:has(.quiz))>.lhead2{grid-column:1/-1}
+ #app:has(.steps):not(:has(.quiz))>.steps{grid-column:1;grid-row:3/span 40;position:sticky;top:76px;display:flex;flex-direction:column;margin:0 0 20px}
+ #app:has(.steps):not(:has(.quiz))>.steps .step{border-right:0;border-bottom:1px solid var(--line);flex-direction:row;justify-content:flex-start;text-align:left;padding:12px 14px}
+ #app:has(.steps):not(:has(.quiz))>.steps .step:last-child{border-bottom:0}
+ #app:has(.steps):not(:has(.quiz))>.steps .step small{margin-left:auto}
+}
+.fb-in{max-width:760px;margin:0 auto}
+
+/* kiểm tra tập trung: ẩn menu, chỉ giữ thanh tiến độ + khung phản hồi trượt lên */
+body:has(.quiz) header.bar,body:has(.quiz) .nav,body:has(.quiz) .steps,body:has(.quiz) .foot{display:none!important}
+body:has(.quiz) main{max-width:760px;margin:0 auto;padding-bottom:200px}
+.quiz .prog-bar{height:8px}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+.fb.sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;margin:0;border-radius:18px 18px 0 0;padding:18px 20px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -8px 30px rgba(16,26,44,.16);animation:sheetUp .22s ease-out;font-size:1rem}
+.fb.sheet.ok{background:var(--good-soft);color:#08603f;border-top:3px solid var(--good)}
+.fb.sheet.no{background:#fdecec;color:#8a1f1f;border-top:3px solid #d64545}
+.fb-h{font-weight:800;font-size:1.1rem}.fb-a{margin-top:4px}.fb-d{margin-top:6px;font-size:.9rem;opacity:.85}.fb-act{margin-top:14px}.fb-act .btn{min-width:180px}
+.q-actions{display:none}
+
+.rm-act .btn,.lr-go,.btn.wide,.fb-act .btn{text-decoration:none}
+@media (max-width:760px){.bar{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:var(--surface)!important}}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
@@ -907,7 +982,8 @@ function drawQuestion(){
   const fb = (ok) => {
     S.answered = true; if (ok) S.right++; else S.wrong.push(q);
     const ans = ja ? `<b class="jp">${esc(w.ja)}</b>（<span class="jp">${esc(w.kana)}</span> · ${esc(w.romaji)}）` : `<b>${esc(w.en)}</b> ${esc(w.ipa)}`;
-    document.getElementById('fb').innerHTML = `<div class="fb ${ok?'ok':'no'}">${ok?'Chính xác!':'Chưa đúng.'} Đáp án: ${ans} = ${esc(w.vi)}</div>`;
+    document.getElementById('fb').innerHTML = `<div class="fb sheet ${ok?'ok':'no'}"><div class="fb-in"><div class="fb-h">${ok?'✓ Chính xác!':'✗ Chưa đúng'}</div><div class="fb-a">Đáp án: ${ans} = ${esc(w.vi)}</div>${w.def_vi ? `<div class="fb-d">${esc(w.def_vi)}</div>` : ''}<div class="fb-act"></div></div></div>`;
+    const slot = document.querySelector('#fb .fb-act'); if (slot) slot.appendChild(next);
     next.hidden = false; next.focus();
   };
   if (q.opts){
@@ -1593,55 +1669,76 @@ function coverSvg(key, icons, hue, deep, wide){
 }
 const topicIcons = id => (ART.art[MAJOR].t[String(id)] || []);
 const lessonIcons = n => (ART.art[MAJOR].l[String(n)] || []);
-function applyMajorTheme(){ document.documentElement.style.setProperty('--h', hueOf(MAJOR)); }
+function applyMajorTheme(){ const cr = document.documentElement.getAttribute('data-palette') === 'coursera'; document.documentElement.style.setProperty('--h', cr ? 214 : hueOf(MAJOR)); }
 function setNav(k){ applyMajorTheme(); document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === k)); }
 function ring(pct){ const c = 2 * Math.PI * 34; return `<svg class="ring" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="7"/><circle cx="40" cy="40" r="34" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(c*pct/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 40 40)"/><text x="40" y="46" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">${pct}%</text></svg>`; }
+
+/* ---- nhật ký ngày học (mục tiêu tuần) ---- */
+const dayKey = d => { const x = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return x.toISOString().slice(0, 10); };
+function studyDays(){ try { return JSON.parse(localStorage.getItem('ew.days') || '[]'); } catch(e){ return []; } }
+function markToday(){ try { const k = dayKey(new Date()), a = studyDays(); if (!a.includes(k)){ a.push(k); localStorage.setItem('ew.days', JSON.stringify(a.slice(-120))); } } catch(e){} }
+window.addEventListener('hashchange', () => { if (/^#(lesson|quiz|reading|cloze|qa)-\d+/.test(location.hash)) markToday(); });
+if (/^#(lesson|quiz|reading|cloze|qa)-\d+/.test(location.hash)) markToday();
+const minutesOf = l => Math.max(10, Math.round(l.count * 0.9));
+function weekWidget(){
+  const days = new Set(studyDays()), now = new Date(), dow = (now.getDay() + 6) % 7, names = ['T2','T3','T4','T5','T6','T7','CN'];
+  let n = 0, cells = '';
+  for (let i = 0; i < 7; i++){ const d = new Date(now); d.setDate(now.getDate() - dow + i); const on = days.has(dayKey(d)); if (on) n++;
+    cells += `<div class="wd ${on ? 'on' : ''} ${i === dow ? 'today' : ''}"><span class="wd-c">${on ? '✓' : ''}</span><small>${names[i]}</small></div>`; }
+  return `<div class="side-card"><h3>Mục tiêu tuần</h3><div class="wk">${cells}</div><p class="muted">${n}/7 ngày có học · mục tiêu: học ít nhất 5 ngày</p></div>`;
+}
 
 function viewRoadmap(){
   setNav('roadmap');
   const tr = PT(prefs.track), hue = hueOf(MAJOR);
   const done = LESSONS.filter(l => !l.pending && tr[l.n] && tr[l.n].best >= PASS);
   const words = done.reduce((s,l) => s + l.count, 0);
-  const sc = Object.values(tr).filter(p => p && typeof p.best === 'number').map(p => p.best);
-  const avg = sc.length ? Math.round(sc.reduce((a,b) => a + b, 0) / sc.length) : 0;
   const pct = Math.round(done.length / LESSONS.length * 100), nx = nextLesson();
   const ja = isJA(), langName = ja ? 'tiếng Nhật' : 'tiếng Anh', nTopics = MAN.modules.reduce((s,m) => s + m.topics.length, 0);
+  const lastDone = done.length ? done[done.length - 1].n : null;
+  const nxL = nx ? lessonByN(nx) : null, openMod = nxL ? nxL.m : (MAN.modules[0] || {}).id;
+  const ms = [30, 60, 90, 120].map(k => `<li class="${done.length >= k ? 'on' : ''}"><i>${done.length >= k ? '✓' : ''}</i>${k} bài</li>`).join('');
   let h = `${majorBar()}
-  <section class="banner">
-    <div class="bn-art">${cover('major:' + MAJOR, [ART.art[MAJOR].d].concat(lessonIcons(1).slice(0,1)), hue, true, true, phB(MAJOR))}</div>
-    <div class="bn-body">
-      <span class="eyebrow">${esc(MAN.icon || '')} ${esc(MAN.en)} · <span class="jp">${esc(MAN.ja)}</span></span>
-      <h1>${esc(MAN.vi)}<br><em>học bằng ${langName}</em></h1>
-      <p>${LESSONS.length} bài · ${nTopics} chủ đề · ${TOTAL_WORDS.toLocaleString('vi-VN')} thuật ngữ. Mỗi bài có từ vựng, quiz, đọc hiểu, điền từ và hỏi đáp tình huống.</p>
-      <div class="bn-act">
-        ${nx ? `<a class="btn light" href="#lesson-${nx}">${tr[nx] ? 'Tiếp tục' : 'Bắt đầu'} bài ${nx} →</a>` : `<span class="chip">Đã xong toàn bộ lộ trình</span>`}
-        <a class="btn ghost" href="#topics">Xem chủ đề</a>
+  <div class="rm2">
+   <div class="rm-main">
+    <section class="rm-head">
+      <div class="rm-art">${cover('major:' + MAJOR, [ART.art[MAJOR].d].concat(lessonIcons(1).slice(0,1)), hue, true, true, phB(MAJOR))}</div>
+      <div class="rm-body">
+        <span class="eyebrow">${esc(MAN.icon || '')} ${esc(MAN.en)} · <span class="jp">${esc(MAN.ja)}</span></span>
+        <h1>${esc(MAN.vi)} <em>học bằng ${langName}</em></h1>
+        <p class="muted">${LESSONS.length} bài · ${nTopics} chủ đề · ${TOTAL_WORDS.toLocaleString('vi-VN')} thuật ngữ</p>
+        <div class="rm-prog"><div class="bar2"><i style="width:${pct}%"></i></div><b>Hoàn thành ${pct}%</b></div>
+        <div class="rm-act">${nx ? `<a class="btn primary" href="#lesson-${nx}">${tr[nx] ? 'Tiếp tục bài đang dở' : 'Bắt đầu học'} · bài ${nx} →</a>` : `<span class="chip">Đã xong toàn bộ lộ trình</span>`}<a class="btn" href="#topics">Xem chủ đề</a></div>
       </div>
-    </div>
-  </section>
-  <section class="kpis">
-    <div><b>${done.length}<small>/${LESSONS.length} bài</small></b><span>Tiến độ ${pct}%</span><div class="bar2"><i style="width:${pct}%"></i></div></div>
-    <div><b>${words.toLocaleString('vi-VN')}</b><span>Từ đã học</span></div>
-    <div><b>${avg}%</b><span>Điểm trung bình</span></div>
-    <div><b>${nx ?? '—'}</b><span>Bài tiếp theo</span></div>
-  </section>`;
+    </section>`;
   MAN.modules.forEach(m => {
     const ls = LESSONS.filter(l => l.m === m.id);
     const d = ls.filter(l => !l.pending && tr[l.n] && tr[l.n].best >= PASS).length;
     const free = FREE.has(m.id);
-    h += `<section class="mod">
-      <div class="mod-h"><span class="mod-n">${m.id}</span>
+    h += `<details class="acc" ${m.id === openMod ? 'open' : ''}>
+      <summary><span class="mod-n">${m.id}</span>
         <div class="mod-t"><h2>${esc(m.vi)} ${free ? '<span class="chip free">Miễn phí</span>' : ''}</h2><div class="sub">${esc(m.en)} · <span class="jp">${esc(m.ja)}</span></div></div>
-        <div class="mod-p"><span>${d}/${ls.length} bài</span><div class="bar2"><i style="width:${Math.round(d/ls.length*100)}%"></i></div></div></div>
-      <div class="lgrid">${ls.map(l => {
-        if (l.pending) return `<div class="lcard pending"><div class="lc-cover">${cover('p'+l.n,[],hue)}<span class="lc-no">${l.n}</span></div><div class="lc-body"><div class="lc-title">${esc(topicLabel(l))}</div><div class="lc-meta"><span>Đang soạn</span></div></div></div>`;
+        <div class="mod-p"><span>${d}/${ls.length} bài</span><div class="bar2"><i style="width:${Math.round(d/ls.length*100)}%"></i></div></div><span class="chev" aria-hidden="true"></span></summary>
+      <div class="lrows">${ls.map(l => {
+        if (l.pending) return `<div class="lrow pending"><div class="lr-th">${cover('p'+l.n,[],hue)}</div><div class="lr-b"><div class="lr-t">Bài ${l.n} · ${esc(topicLabel(l))}</div><div class="lr-m">Đang soạn</div></div></div>`;
         const s = lessonStatus(l.n), lk = !unlocked(l.m), p = tr[l.n];
-        const lab = lk ? 'Cần mở khóa' : (l.n === nx && !s.cls ? '▶ Học tiếp' : s.label);
-        return `<a class="lcard ${lk ? 'locked' : s.cls} ${l.n === nx ? 'next' : ''}" href="${lk ? '#pricing' : '#lesson-' + l.n}">
-          <div class="lc-cover">${cover('l' + MAJOR + l.n, lessonIcons(l.n), hue, false, false, phL(l))}<span class="lc-no">${l.n}</span>${lk ? '<span class="lc-flag">🔒</span>' : (s.cls === 'done' ? '<span class="lc-flag ok">✓</span>' : '')}${p ? `<span class="lc-bar"><i style="width:${Math.min(100,p.best)}%"></i></span>` : ''}</div>
-          <div class="lc-body"><div class="lc-title">${esc(topicLabel(l))}</div><div class="lc-meta"><span>${l.count} từ</span><span class="lc-st">${lab}</span></div></div></a>`; }).join('')}
-      </div></section>`;
+        const st = lk ? '<span class="st lock" title="Cần mở khóa">🔒</span>' : (s.cls === 'done' ? '<span class="st ok" title="Đã hoàn thành">✓</span>' : (s.cls === 'tried' ? '<span class="st mid" title="Đang học dở">◐</span>' : '<span class="st"></span>'));
+        return `<a class="lrow ${lk ? 'locked' : s.cls} ${l.n === nx ? 'next' : ''}" href="${lk ? '#pricing' : '#lesson-' + l.n}">
+          <div class="lr-th">${cover('l' + MAJOR + l.n, lessonIcons(l.n), hue, false, false, phL(l))}</div>
+          <div class="lr-b"><div class="lr-t">Bài ${l.n} · ${esc(topicLabel(l))}</div>
+            <div class="lr-m"><span title="Từ vựng">📖 ${l.count} từ</span><span title="Quiz">✔ Quiz</span><span title="Đọc hiểu · Điền từ · Hỏi đáp">📄 Đọc hiểu</span><span>⏱ ~${minutesOf(l)} phút</span>${p ? `<span class="sc">${p.best}%</span>` : ''}</div></div>
+          ${l.n === nx && !lk ? '<span class="lr-go">Học tiếp</span>' : ''}${st}</a>`; }).join('')}
+      </div></details>`;
   });
+  h += `</div>
+   <aside class="rm-side">
+    ${weekWidget()}
+    <div class="side-card"><h3>Kho từ vựng của bạn</h3><div class="big">${words.toLocaleString('vi-VN')}</div><p class="muted">thuật ngữ đã học trong ngành ${esc(MAN.vi)}</p>
+      ${lastDone ? `<a class="btn primary wide" href="#lesson-${lastDone}">Ôn lại bài ${lastDone}</a>` : `<p class="muted">Hoàn thành bài đầu tiên để bắt đầu có từ vựng ôn tập.</p>`}</div>
+    <div class="side-card"><h3>Cột mốc hoàn thành</h3><div class="bar2"><i style="width:${pct}%"></i></div><ul class="ms">${ms}</ul>
+      <p class="muted">Chứng nhận hoàn thành sẽ có khi đủ 120 bài (tính năng sắp ra mắt).</p></div>
+   </aside>
+  </div>`;
   app.innerHTML = h;
 }
 
@@ -1674,7 +1771,7 @@ function viewMajors(){
         <div class="mc-foot"><span>${d}/120 bài hoàn thành</span><span>${r < 120 ? (r ? r + '/120 sẵn sàng' : 'Đang soạn') : '120 bài · 3.000 từ'}</span></div></div></a>`; }).join('')}</div>`;
 }
 
-try{ const pl = localStorage.getItem('ew.palette'); if (pl) document.documentElement.setAttribute('data-palette', pl); }catch(e){}
+try{ const pl = localStorage.getItem('ew.palette') || 'coursera'; document.documentElement.setAttribute('data-palette', pl); }catch(e){ document.documentElement.setAttribute('data-palette', 'coursera'); }
 
 </script>
 </body>

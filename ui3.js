@@ -31,55 +31,76 @@ function coverSvg(key, icons, hue, deep, wide){
 }
 const topicIcons = id => (ART.art[MAJOR].t[String(id)] || []);
 const lessonIcons = n => (ART.art[MAJOR].l[String(n)] || []);
-function applyMajorTheme(){ document.documentElement.style.setProperty('--h', hueOf(MAJOR)); }
+function applyMajorTheme(){ const cr = document.documentElement.getAttribute('data-palette') === 'coursera'; document.documentElement.style.setProperty('--h', cr ? 214 : hueOf(MAJOR)); }
 function setNav(k){ applyMajorTheme(); document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === k)); }
 function ring(pct){ const c = 2 * Math.PI * 34; return `<svg class="ring" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="7"/><circle cx="40" cy="40" r="34" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(c*pct/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 40 40)"/><text x="40" y="46" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">${pct}%</text></svg>`; }
+
+/* ---- nhật ký ngày học (mục tiêu tuần) ---- */
+const dayKey = d => { const x = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return x.toISOString().slice(0, 10); };
+function studyDays(){ try { return JSON.parse(localStorage.getItem('ew.days') || '[]'); } catch(e){ return []; } }
+function markToday(){ try { const k = dayKey(new Date()), a = studyDays(); if (!a.includes(k)){ a.push(k); localStorage.setItem('ew.days', JSON.stringify(a.slice(-120))); } } catch(e){} }
+window.addEventListener('hashchange', () => { if (/^#(lesson|quiz|reading|cloze|qa)-\d+/.test(location.hash)) markToday(); });
+if (/^#(lesson|quiz|reading|cloze|qa)-\d+/.test(location.hash)) markToday();
+const minutesOf = l => Math.max(10, Math.round(l.count * 0.9));
+function weekWidget(){
+  const days = new Set(studyDays()), now = new Date(), dow = (now.getDay() + 6) % 7, names = ['T2','T3','T4','T5','T6','T7','CN'];
+  let n = 0, cells = '';
+  for (let i = 0; i < 7; i++){ const d = new Date(now); d.setDate(now.getDate() - dow + i); const on = days.has(dayKey(d)); if (on) n++;
+    cells += `<div class="wd ${on ? 'on' : ''} ${i === dow ? 'today' : ''}"><span class="wd-c">${on ? '✓' : ''}</span><small>${names[i]}</small></div>`; }
+  return `<div class="side-card"><h3>Mục tiêu tuần</h3><div class="wk">${cells}</div><p class="muted">${n}/7 ngày có học · mục tiêu: học ít nhất 5 ngày</p></div>`;
+}
 
 function viewRoadmap(){
   setNav('roadmap');
   const tr = PT(prefs.track), hue = hueOf(MAJOR);
   const done = LESSONS.filter(l => !l.pending && tr[l.n] && tr[l.n].best >= PASS);
   const words = done.reduce((s,l) => s + l.count, 0);
-  const sc = Object.values(tr).filter(p => p && typeof p.best === 'number').map(p => p.best);
-  const avg = sc.length ? Math.round(sc.reduce((a,b) => a + b, 0) / sc.length) : 0;
   const pct = Math.round(done.length / LESSONS.length * 100), nx = nextLesson();
   const ja = isJA(), langName = ja ? 'tiếng Nhật' : 'tiếng Anh', nTopics = MAN.modules.reduce((s,m) => s + m.topics.length, 0);
+  const lastDone = done.length ? done[done.length - 1].n : null;
+  const nxL = nx ? lessonByN(nx) : null, openMod = nxL ? nxL.m : (MAN.modules[0] || {}).id;
+  const ms = [30, 60, 90, 120].map(k => `<li class="${done.length >= k ? 'on' : ''}"><i>${done.length >= k ? '✓' : ''}</i>${k} bài</li>`).join('');
   let h = `${majorBar()}
-  <section class="banner">
-    <div class="bn-art">${cover('major:' + MAJOR, [ART.art[MAJOR].d].concat(lessonIcons(1).slice(0,1)), hue, true, true, phB(MAJOR))}</div>
-    <div class="bn-body">
-      <span class="eyebrow">${esc(MAN.icon || '')} ${esc(MAN.en)} · <span class="jp">${esc(MAN.ja)}</span></span>
-      <h1>${esc(MAN.vi)}<br><em>học bằng ${langName}</em></h1>
-      <p>${LESSONS.length} bài · ${nTopics} chủ đề · ${TOTAL_WORDS.toLocaleString('vi-VN')} thuật ngữ. Mỗi bài có từ vựng, quiz, đọc hiểu, điền từ và hỏi đáp tình huống.</p>
-      <div class="bn-act">
-        ${nx ? `<a class="btn light" href="#lesson-${nx}">${tr[nx] ? 'Tiếp tục' : 'Bắt đầu'} bài ${nx} →</a>` : `<span class="chip">Đã xong toàn bộ lộ trình</span>`}
-        <a class="btn ghost" href="#topics">Xem chủ đề</a>
+  <div class="rm2">
+   <div class="rm-main">
+    <section class="rm-head">
+      <div class="rm-art">${cover('major:' + MAJOR, [ART.art[MAJOR].d].concat(lessonIcons(1).slice(0,1)), hue, true, true, phB(MAJOR))}</div>
+      <div class="rm-body">
+        <span class="eyebrow">${esc(MAN.icon || '')} ${esc(MAN.en)} · <span class="jp">${esc(MAN.ja)}</span></span>
+        <h1>${esc(MAN.vi)} <em>học bằng ${langName}</em></h1>
+        <p class="muted">${LESSONS.length} bài · ${nTopics} chủ đề · ${TOTAL_WORDS.toLocaleString('vi-VN')} thuật ngữ</p>
+        <div class="rm-prog"><div class="bar2"><i style="width:${pct}%"></i></div><b>Hoàn thành ${pct}%</b></div>
+        <div class="rm-act">${nx ? `<a class="btn primary" href="#lesson-${nx}">${tr[nx] ? 'Tiếp tục bài đang dở' : 'Bắt đầu học'} · bài ${nx} →</a>` : `<span class="chip">Đã xong toàn bộ lộ trình</span>`}<a class="btn" href="#topics">Xem chủ đề</a></div>
       </div>
-    </div>
-  </section>
-  <section class="kpis">
-    <div><b>${done.length}<small>/${LESSONS.length} bài</small></b><span>Tiến độ ${pct}%</span><div class="bar2"><i style="width:${pct}%"></i></div></div>
-    <div><b>${words.toLocaleString('vi-VN')}</b><span>Từ đã học</span></div>
-    <div><b>${avg}%</b><span>Điểm trung bình</span></div>
-    <div><b>${nx ?? '—'}</b><span>Bài tiếp theo</span></div>
-  </section>`;
+    </section>`;
   MAN.modules.forEach(m => {
     const ls = LESSONS.filter(l => l.m === m.id);
     const d = ls.filter(l => !l.pending && tr[l.n] && tr[l.n].best >= PASS).length;
     const free = FREE.has(m.id);
-    h += `<section class="mod">
-      <div class="mod-h"><span class="mod-n">${m.id}</span>
+    h += `<details class="acc" ${m.id === openMod ? 'open' : ''}>
+      <summary><span class="mod-n">${m.id}</span>
         <div class="mod-t"><h2>${esc(m.vi)} ${free ? '<span class="chip free">Miễn phí</span>' : ''}</h2><div class="sub">${esc(m.en)} · <span class="jp">${esc(m.ja)}</span></div></div>
-        <div class="mod-p"><span>${d}/${ls.length} bài</span><div class="bar2"><i style="width:${Math.round(d/ls.length*100)}%"></i></div></div></div>
-      <div class="lgrid">${ls.map(l => {
-        if (l.pending) return `<div class="lcard pending"><div class="lc-cover">${cover('p'+l.n,[],hue)}<span class="lc-no">${l.n}</span></div><div class="lc-body"><div class="lc-title">${esc(topicLabel(l))}</div><div class="lc-meta"><span>Đang soạn</span></div></div></div>`;
+        <div class="mod-p"><span>${d}/${ls.length} bài</span><div class="bar2"><i style="width:${Math.round(d/ls.length*100)}%"></i></div></div><span class="chev" aria-hidden="true"></span></summary>
+      <div class="lrows">${ls.map(l => {
+        if (l.pending) return `<div class="lrow pending"><div class="lr-th">${cover('p'+l.n,[],hue)}</div><div class="lr-b"><div class="lr-t">Bài ${l.n} · ${esc(topicLabel(l))}</div><div class="lr-m">Đang soạn</div></div></div>`;
         const s = lessonStatus(l.n), lk = !unlocked(l.m), p = tr[l.n];
-        const lab = lk ? 'Cần mở khóa' : (l.n === nx && !s.cls ? '▶ Học tiếp' : s.label);
-        return `<a class="lcard ${lk ? 'locked' : s.cls} ${l.n === nx ? 'next' : ''}" href="${lk ? '#pricing' : '#lesson-' + l.n}">
-          <div class="lc-cover">${cover('l' + MAJOR + l.n, lessonIcons(l.n), hue, false, false, phL(l))}<span class="lc-no">${l.n}</span>${lk ? '<span class="lc-flag">🔒</span>' : (s.cls === 'done' ? '<span class="lc-flag ok">✓</span>' : '')}${p ? `<span class="lc-bar"><i style="width:${Math.min(100,p.best)}%"></i></span>` : ''}</div>
-          <div class="lc-body"><div class="lc-title">${esc(topicLabel(l))}</div><div class="lc-meta"><span>${l.count} từ</span><span class="lc-st">${lab}</span></div></div></a>`; }).join('')}
-      </div></section>`;
+        const st = lk ? '<span class="st lock" title="Cần mở khóa">🔒</span>' : (s.cls === 'done' ? '<span class="st ok" title="Đã hoàn thành">✓</span>' : (s.cls === 'tried' ? '<span class="st mid" title="Đang học dở">◐</span>' : '<span class="st"></span>'));
+        return `<a class="lrow ${lk ? 'locked' : s.cls} ${l.n === nx ? 'next' : ''}" href="${lk ? '#pricing' : '#lesson-' + l.n}">
+          <div class="lr-th">${cover('l' + MAJOR + l.n, lessonIcons(l.n), hue, false, false, phL(l))}</div>
+          <div class="lr-b"><div class="lr-t">Bài ${l.n} · ${esc(topicLabel(l))}</div>
+            <div class="lr-m"><span title="Từ vựng">📖 ${l.count} từ</span><span title="Quiz">✔ Quiz</span><span title="Đọc hiểu · Điền từ · Hỏi đáp">📄 Đọc hiểu</span><span>⏱ ~${minutesOf(l)} phút</span>${p ? `<span class="sc">${p.best}%</span>` : ''}</div></div>
+          ${l.n === nx && !lk ? '<span class="lr-go">Học tiếp</span>' : ''}${st}</a>`; }).join('')}
+      </div></details>`;
   });
+  h += `</div>
+   <aside class="rm-side">
+    ${weekWidget()}
+    <div class="side-card"><h3>Kho từ vựng của bạn</h3><div class="big">${words.toLocaleString('vi-VN')}</div><p class="muted">thuật ngữ đã học trong ngành ${esc(MAN.vi)}</p>
+      ${lastDone ? `<a class="btn primary wide" href="#lesson-${lastDone}">Ôn lại bài ${lastDone}</a>` : `<p class="muted">Hoàn thành bài đầu tiên để bắt đầu có từ vựng ôn tập.</p>`}</div>
+    <div class="side-card"><h3>Cột mốc hoàn thành</h3><div class="bar2"><i style="width:${pct}%"></i></div><ul class="ms">${ms}</ul>
+      <p class="muted">Chứng nhận hoàn thành sẽ có khi đủ 120 bài (tính năng sắp ra mắt).</p></div>
+   </aside>
+  </div>`;
   app.innerHTML = h;
 }
 
@@ -112,4 +133,4 @@ function viewMajors(){
         <div class="mc-foot"><span>${d}/120 bài hoàn thành</span><span>${r < 120 ? (r ? r + '/120 sẵn sàng' : 'Đang soạn') : '120 bài · 3.000 từ'}</span></div></div></a>`; }).join('')}</div>`;
 }
 
-try{ const pl = localStorage.getItem('ew.palette'); if (pl) document.documentElement.setAttribute('data-palette', pl); }catch(e){}
+try{ const pl = localStorage.getItem('ew.palette') || 'coursera'; document.documentElement.setAttribute('data-palette', pl); }catch(e){ document.documentElement.setAttribute('data-palette', 'coursera'); }
