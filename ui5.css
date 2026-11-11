@@ -1,0 +1,19 @@
+/* ===== v5: tối giản theo bậc ===== */
+.msw{position:relative;margin:0 0 14px}
+.msw>summary{list-style:none;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;font-size:.92rem}
+.msw>summary::-webkit-details-marker{display:none}.msw .msw-c{color:var(--muted);font-size:.8rem;margin-left:4px}
+.msw-list{position:absolute;z-index:40;top:calc(100% + 6px);left:0;min-width:240px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 32px rgba(16,26,44,.14);padding:6px;display:grid}
+.msw-list a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;color:inherit;text-decoration:none}
+.msw-list a:hover{background:var(--accent-soft)}.msw-list a.on{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.msw-list small{margin-left:auto;color:var(--muted);font-size:.75rem}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 14px}
+.tier{display:grid;gap:3px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;cursor:pointer;font:inherit;color:inherit;transition:border-color .15s,box-shadow .15s}
+.tier:hover{border-color:var(--accent)}.tier.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft);background:var(--accent-soft)}
+.t-n{font-size:.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.04em}.t-name{font-weight:800;font-size:1.05rem}
+.t-sub{font-size:.76rem;color:var(--muted);line-height:1.35}.t-p{display:block;height:5px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:6px}
+.t-p i{display:block;height:100%;background:var(--good)}.t-c{font-size:.75rem;color:var(--muted)}
+[data-tp][hidden]{display:none}
+.mod-c{font-size:.8rem;color:var(--muted);white-space:nowrap}.mod-c.full{color:var(--good);font-weight:700}
+.rm-head .rm-art{height:84px}.rm-body h1{font-size:1.4rem}
+@media (max-width:620px){.tiers{grid-template-columns:1fr;gap:8px}.tier{grid-template-columns:auto 1fr auto;align-items:center;column-gap:10px}.t-sub,.t-p{display:none}.t-c{grid-column:3}}
+.rm-act{align-items:center}.rm-nx{font-size:.85rem;flex:1;min-width:160px}
